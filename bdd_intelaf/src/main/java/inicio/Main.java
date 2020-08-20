@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         
         Empresa e1 = new Empresa();
-        e1.inicio();
+        e1.pantallaCargaArchivo();
         
     }
     
