@@ -11,8 +11,8 @@ public class Main {
      */
     public static void main(String[] args) {
         
-        Inicio i1 = new Inicio();
-        i1.iniciar();
+        Empresa e1 = new Empresa();
+        e1.inicio();
         
     }
     
