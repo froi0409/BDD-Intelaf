@@ -6,6 +6,9 @@
 package interfazGrafica;
 
 import javax.swing.JFileChooser;
+import inicio.*;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  *
@@ -13,12 +16,19 @@ import javax.swing.JFileChooser;
  */
 public class CargaDeArchivo extends javax.swing.JFrame {
 
+    Empresa empresa;
+    
     /**
      * Creates new form CargaDeArchivo
      */
-    public CargaDeArchivo() {
+    public CargaDeArchivo(Empresa empresa) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.empresa = empresa;
+    }
+
+    private CargaDeArchivo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -116,6 +126,13 @@ public class CargaDeArchivo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        try{
+            FileReader f1 = new FileReader(jTextField1.getText());
+            empresa.leerArchivo(f1);
+        }catch(IOException e){
+            
+        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

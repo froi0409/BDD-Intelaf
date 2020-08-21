@@ -3,17 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package inicio;
-import interfazGrafica.*;
+package entidades;
+
 /**
  *
  * @author froi-pc
  */
-public class Inicio {
+public class Empleado extends Persona{
     
-    public void iniciar(){
-        PantallaInicial p1 = new PantallaInicial();
-        p1.setVisible(true);
+    @Override
+    public void consultaDatos(){
+        
+    }
+    @Override
+    public void registro(){
+        
+    }
+    
+    public void cambioDatos(){
+        
     }
     
 }
