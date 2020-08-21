@@ -57,7 +57,6 @@ public class Empresa {
     
     private boolean analizarLinea(String lineas){
         AnalizadorPalabra a1 = new AnalizadorPalabra();
-        boolean comprobante = true;
         String linea = lineas;
         linea+=",";
         //P - palabra
@@ -89,10 +88,8 @@ public class Empresa {
                 return false;
         
         } else{
-            comprobante = false;
+            return false;
         }
-        
-        return comprobante;
         
     }
     
