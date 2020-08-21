@@ -54,11 +54,13 @@ public class Empresa {
         //}
     }
     
-    private boolean analizarLinea(String linea){
+    private boolean analizarLinea(String lineas){
         boolean comprobante = true;
-        
+        String linea = lineas;
+        linea+=",";
         if("TIENDA".equals(linea.substring(0, 6))) {
             //Si en el archivo se ingresa una tienda, acá van las condiciones que debe tener la tienda para ser ingresada
+            System.out.println(linea.substring(6, linea.length() - 1));
             
         } else if (linea.substring(0, 6).equals("TIEMPO")){
             //Si en el archivo de texto se ingresa un tiempo, acá van las condicions que debe tener el tiempo para ser ingresado
@@ -87,4 +89,6 @@ public class Empresa {
         return comprobante;
         
     }
+    
+    
 }
