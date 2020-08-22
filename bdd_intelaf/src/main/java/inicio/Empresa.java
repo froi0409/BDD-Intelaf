@@ -12,6 +12,10 @@ import analizadores.*;
 public class Empresa {
     
     public void inicio(){
+        
+        Conexion connection =  new Conexion();
+        connection.crearConexion();
+        
         PantallaInicial p1 = new PantallaInicial();
         p1.setVisible(true);
     }
@@ -37,7 +41,6 @@ public class Empresa {
                 
                 //Esta condición se encarga de evitar que el archivo sobrepase las lineas que tiene escritas
                 if(linea != null){
-                    //System.out.println(linea);
                     if(!analizarLinea(linea)){
                         System.out.println("Error de entrada en la linea: " + cont);
                     } else {
@@ -50,23 +53,23 @@ public class Empresa {
             
         }
         
-        //for(String e: errores){
-        //    System.out.println(e);
-        //}
     }
     
     private boolean analizarLinea(String lineas){
+        boolean retorno = true;
         AnalizadorPalabra a1 = new AnalizadorPalabra();
         String linea = lineas;
         linea+=",";
         //P - palabra
-    //N - numero
-    //. - punto
-    //- - guion
-    //S - String
+        //N - numero
+        //. - punto
+        //- - guion
+        //S - String
         if("TIENDA".equals(linea.substring(0, 6))) {
             //Si en el archivo se ingresa una tienda, acá van las condiciones que debe tener la tienda para ser ingresada
-            return a1.analizar("S,S,P-N,N,", linea.substring(7,linea.length()));
+            if(a1.analizar("S,S,P-N,N,", linea.substring(7,linea.length()))){
+                
+            }
         } else if (linea.substring(0, 6).equals("TIEMPO")){
             //Si en el archivo de texto se ingresa un tiempo, acá van las condicions que debe tener el tiempo para ser ingresado
             return a1.analizar("P-N,P-N,N,", linea.substring(7,linea.length()));
@@ -90,8 +93,12 @@ public class Empresa {
         } else{
             return false;
         }
+        return retorno;
         
     }
     
+    public void ingresarEmpleado(){
+        
+    }
     
 }
