@@ -5,6 +5,10 @@
  */
 package entidades;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 /**
  *
  * @author froi-pc
@@ -27,4 +31,28 @@ public class Cliente extends Persona {
     public void monitoreoPedido(){
         
     }
+    
+    public void ingresoClienteArchivo(Connection connection, String nombre, String NIT, String telefono, String credito){
+        
+        String query = "INSERT INTO CLIENTE (nombre,NIT,telefono,credito) VALUES (?,?,?,?)";
+        
+        try(PreparedStatement preSt = connection.prepareStatement(query)){
+            
+            preSt.setString(1, nombre);
+            preSt.setString(2, NIT);
+            preSt.setString(3, telefono);
+            preSt.setString(4, credito);
+            
+            preSt.executeUpdate();
+            
+            preSt.close();
+            
+        } catch(SQLException e){
+            
+            System.out.println("Error: " + e.getMessage());
+            
+        }
+        
+    }
+    
 }

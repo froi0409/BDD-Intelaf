@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS EMPLEADO(
   NIT VARCHAR(26),
   correo_electronico VARCHAR(45),
   direccion VARCHAR(45),
-  codigo_tienda VARCHAR(10) NOT NULL,
+  codigo_tienda VARCHAR(10),
   PRIMARY KEY(codigo_empleado),
   FOREIGN KEY(codigo_tienda) REFERENCES TIENDA(codigo_tienda)
 );
@@ -29,14 +29,14 @@ CREATE TABLE IF NOT EXISTS PRODUCTO(
   codigo_producto VARCHAR(10) NOT NULL,
   nombre VARCHAR(60) NOT NULL,
   fabricante VARCHAR(45) NOT NULL,
-  precio DECIMAL(6,2) NOT NULL,
+  precio DECIMAL(6a,2) NOT NULL,
   descripcion VARCHAR(300),
   garantia INT,
   PRIMARY KEY(codigo_producto)
 );
 
 CREATE TABLE IF NOT EXISTS EXISTENCIAS(
-  codigo_existencia VARCHAR(12) NOT NULL,
+  codigo_existencia VARCHAR(30) NOT NULL,
   cantidad INT NOT NULL,
   codigo_producto VARCHAR(10) NOT NULL,
   codigo_tienda VARCHAR(10) NOT NULL,

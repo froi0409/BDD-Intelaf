@@ -3,6 +3,7 @@ package analizadores;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -41,9 +42,11 @@ public class Conexion {
             if(resultSet.next()){
                 System.out.println(resultSet.getString(1));
             }
+            statement.close();
         } catch(SQLException e){
-            
+            System.out.println("Error: " + e.getMessage());
         }
         
     }
+    
 }
