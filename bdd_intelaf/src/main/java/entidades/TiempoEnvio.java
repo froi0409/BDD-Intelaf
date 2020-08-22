@@ -7,6 +7,7 @@ package entidades;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.sql.PreparedStatement;
  */
 public class TiempoEnvio {
     
-    public void ingresoTiempoArchivo(Connection connection, String tienda1, String tienda2, String tiempo){
+    public static void ingresoTiempoArchivo(Connection connection, String tienda1, String tienda2, String tiempo){
         
         String query = "INSERT INTO TIEMPO VALUES (?,?,?)";
         
@@ -22,7 +23,7 @@ public class TiempoEnvio {
             
             preSt.setString(1, tiempo);
             preSt.setString(2, tienda1);
-            prest.setString(3, tienda2);
+            preSt.setString(3, tienda2);
             
             preSt.executeUpdate();
             

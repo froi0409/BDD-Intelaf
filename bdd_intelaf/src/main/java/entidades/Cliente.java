@@ -32,7 +32,7 @@ public class Cliente extends Persona {
         
     }
     
-    public void ingresoClienteArchivo(Connection connection, String nombre, String NIT, String telefono, String credito){
+    public static void ingresoClienteArchivo(Connection connection, String nombre, String NIT, String telefono, String credito){
         
         String query = "INSERT INTO CLIENTE (nombre,NIT,telefono,credito) VALUES (?,?,?,?)";
         
