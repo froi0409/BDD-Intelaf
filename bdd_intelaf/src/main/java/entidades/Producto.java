@@ -19,7 +19,7 @@ public class Producto {
         
         String codigoDesc = codigo+tienda;
         String query = "INSERT INTO PRODUCTO (nombre,fabricante,codigo_producto,precio) VALUES (?,?,?,?)";
-        String query2 = "INSERT INTO EXISTENCIAS (?,?,?,?)";
+        String query2 = "INSERT INTO EXISTENCIAS VALUES (?,?,?,?)";
         
         try(PreparedStatement preSt = connection.prepareStatement(query);
             PreparedStatement preSt2 = connection.prepareStatement(query2)){

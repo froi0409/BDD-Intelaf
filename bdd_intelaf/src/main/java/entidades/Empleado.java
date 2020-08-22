@@ -30,7 +30,7 @@ public class Empleado extends Persona{
         
     }
     
-    public void ingresoEmpleadoArchivo(Connection connection, String nombre, String codigo, String telefono, String DPI){
+    public static void ingresoEmpleadoArchivo(Connection connection, String nombre, String codigo, String telefono, String DPI){
         
         String query = "INSERT INTO EMPLEADO (nombre,codigo_empleado,telefono,DPI) VALUES(?,?,?,?)";
         

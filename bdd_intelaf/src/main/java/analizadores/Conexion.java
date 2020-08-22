@@ -17,21 +17,26 @@ public class Conexion {
     
     private static Connection connection;
     
+    //Metodo que sirve para iniciar la conexión
     public void crearConexion(){
         
         String url = "jdbc:mysql://localhost:3306/INTELAF?useSSL=false";
         String user = "usuarioIntelaf";
         String password = "intelaf123";
+        //String user = "root";
+        //String password = "froi040900";
         
         try{
             connection = DriverManager.getConnection(url, user, password);
+            System.out.println("CONEXIÓN INICIADA");
         }catch(SQLException e){
+            System.out.println("CONEXION SIN INICIAR");
             System.out.println("Error: " + e.getMessage());
         }
         
     }
     
-    public static Connection getConection(){
+    public static Connection getConnection(){
         return connection;
     }
     

@@ -5,8 +5,6 @@
  */
 package analizadores;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author froi-pc
@@ -92,47 +90,6 @@ public class AnalizadorPalabra {
         }
         
         return estructura.equals(comparador);
-    }
-    
-    private ArrayList descomponerPalabras(String linea){
-        
-        ArrayList<String> palabras = new ArrayList<>();
-        int start = 0, end = 0;
-        
-        for(int i = 0; i < linea.length(); i++){
-            if(linea.charAt(i) == ','){
-                
-                palabras.add(linea);
-                
-            }
-        }
-        
-        return palabras;
-    }
-    
-    public void ingreso(String tipo, String linea){
-        switch(tipo){
-            case "TIENDA":
-                
-                break;
-            case "TIEMPO":
-                
-                break;
-            case "PRODUCTO":
-                
-                break;
-            case "EMPLEADO0":
-                
-                break;
-            case "CLIENTE":
-                
-                break;
-            case "PEDIDO":
-                
-                break;
-            default:
-                break;
-        }
     }
     
     private boolean esLetra(char a){
