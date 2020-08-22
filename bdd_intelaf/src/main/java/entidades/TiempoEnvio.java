@@ -47,7 +47,7 @@ public class TiempoEnvio {
             
             ResultSet result = preSt.executeQuery();
             
-            result.next(); //pasamos el apuntador de la primera tabla a la primera (y debería ser única) tupla;
+            result.next(); //pasamos el apuntador del principo de la  tabla a la primera tupla (y debería ser única) tupla;
             
             return result.getString(1);
             
