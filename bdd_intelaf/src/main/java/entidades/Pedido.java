@@ -3,6 +3,7 @@ package entidades;
 import analizadores.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -35,7 +36,7 @@ public class Pedido {
             
             //Debido a que los pedidos pueden tener "repetición de código", este finally ejecuta  un nuevo insert, el cual ingresa las "repeticiones" del pedido como una llave foranea en
             //une entidad que describe el pedido 
-            String query2 = "INSERT INTO DESCRIPCION_PEDIDO (total,cantidad,codigo_producto,codigo_pedido) VALUES (?,?,?,?)";
+            String query2 = "INSERT INTO DESCRIPCION_PEDIDO (total,cantidad,codigo_producto,codigo_pedido,anticipo) VALUES (?,?,?,?,?)";
             
             try (PreparedStatement preSt2 = Conexion.getConnection().prepareStatement(query2)) {
                 
@@ -43,16 +44,52 @@ public class Pedido {
                 preSt2.setString(2, cantidad);
                 preSt2.setString(3, articulo);
                 preSt2.setString(4, codigo_pedido);
+                preSt2.setString(5, anticipo);
                   
                 preSt2.executeUpdate();
                 
                 
-                
             } catch (SQLException e) {
                 System.out.println("Error2: " + e.getMessage());
+            } finally{
+                actualizarTotalPedido(connection);
             }
             
         }
+    }
+    
+    //Funcion que sirve para actualizar los precios totales del pedido
+    private static void actualizarTotalPedido(Connection connection){
+        
+        String query = "SELECT P.codigo_pedido,SUM(D.total) FROM PEDIDO P LEFT JOIN DESCRIPCION_PEDIDO D ON P.codigo_pedido = D.codigo_pedido GROUP BY P.codigo_pedido ORDER BY P.codigo_pedido ASC;";
+        String cantTuplasP = "SELECT COUNT(*) FROM PEDIDO ";
+        String update = "UPDATE PEDIDO SET precio_final = ? WHERE codigo_pedido = ?";
+        
+        try (PreparedStatement preSt = connection.prepareStatement(query); //pest que relaciona el precio total con el codigo del producto
+             PreparedStatement preSt2 = connection.prepareStatement(cantTuplasP); //prest que nos resuelve la cantidad de tuplas que tendremos que actualizar
+             PreparedStatement preSt3 = connection.prepareStatement(update)){ //prest que nos hará la actualización de las tuplas correspondientes
+            
+            ResultSet result = preSt.executeQuery();
+            ResultSet result2 = preSt2.executeQuery();
+            
+            result2.next();
+            int cantTuplas = result2.getInt(1); 
+            for(int i = 0; i < cantTuplas; i++){
+                
+                System.out.println("se ejecutó");
+                
+                result.next();
+                System.out.println(result.getString(1) + "  " + result.getString(2));
+                
+                preSt3.setString(1, result.getString(2));
+                preSt3.setString(2, result.getString(1));
+                preSt3.executeUpdate();
+
+            }
+            
+        } catch (Exception e) {
+        }
+        
     }
     
     
