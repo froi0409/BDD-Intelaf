@@ -103,7 +103,10 @@ public class SeleccionDeTienda extends javax.swing.JFrame {
         //Selecciona la tienda que se usará
         AnalizadorPalabra ap = new AnalizadorPalabra();
         String palabra = (String) jComboBox1.getSelectedItem();
-        System.out.println(ap.analizarPalabra(palabra));
+        
+        InterfazEmpleado ie = new InterfazEmpleado(ap.analizarPalabra(palabra));
+        ie.setVisible(true);
+        this.setVisible(false);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

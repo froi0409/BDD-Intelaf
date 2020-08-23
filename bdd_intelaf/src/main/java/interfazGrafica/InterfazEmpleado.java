@@ -12,9 +12,19 @@ package interfazGrafica;
  */
 public class InterfazEmpleado extends javax.swing.JFrame {
 
-    /** Creates new form InterfazEmpleado */
-    public InterfazEmpleado() {
+    private String codigo_tienda;
+    
+    /** Creates new form InterfazEmpleado
+     * @param codigo_tienda */
+    public InterfazEmpleado(String codigo_tienda) {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.codigo_tienda = codigo_tienda;
+        System.out.println(codigo_tienda);
+    }
+
+    private InterfazEmpleado() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /** This method is called from within the constructor to
@@ -37,11 +47,11 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 627, Short.MAX_VALUE)
+            .addGap(0, 931, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
+            .addGap(0, 631, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Inicio", jPanel1);
@@ -50,11 +60,11 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 627, Short.MAX_VALUE)
+            .addGap(0, 931, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
+            .addGap(0, 631, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Productos", jPanel2);
@@ -63,11 +73,11 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 627, Short.MAX_VALUE)
+            .addGap(0, 931, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
+            .addGap(0, 631, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Tiendas", jPanel3);
