@@ -5,6 +5,9 @@
  */
 package interfazGrafica;
 
+import analizadores.*;
+import inicio.Empresa;
+import java.sql.Connection;
 import javax.swing.ImageIcon;
 
 /**
@@ -16,10 +19,19 @@ public class PantallaInicial extends javax.swing.JFrame {
     /**
      * Creates new form PantallaInicial
      */
-    public PantallaInicial() {
+    
+    private Empresa empresa;
+    
+    public PantallaInicial(Empresa empresa) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.empresa = empresa;
     }
+
+    private PantallaInicial() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,7 +62,7 @@ public class PantallaInicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Seleccione la opción que desea ejecutar");
+        jLabel2.setText("Seleccione su tipo de usuario:");
 
         jLabel3.setText("Usuario:");
 
@@ -120,6 +132,24 @@ public class PantallaInicial extends javax.swing.JFrame {
         if(jComboBox1.getSelectedIndex() == 0){
             //EL COMBOBOX NO TIENE ENTIDAD SELECCIONADA
         } 
+        if(jComboBox1.getSelectedIndex() == 2){
+            AnalizadorDeExistencias ae = new AnalizadorDeExistencias(Conexion.getConnection());
+            if(ae.analizarExistenciaDeDatos()){
+                System.out.println("holi");
+                SeleccionDeTienda selecT = new SeleccionDeTienda();
+                selecT.setVisible(true);
+                this.setVisible(false);
+            }
+            else{
+                //No se crea ninguna conexion, únicamente sirve para llamar al usuario principal
+                Conexion user = new Conexion();
+                if(jTextField1.getText().equals(user.getUser())){
+                    System.out.println("jsjsjs");
+                    empresa.pantallaCargaArchivo();
+                    this.setVisible(false);
+                }
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed

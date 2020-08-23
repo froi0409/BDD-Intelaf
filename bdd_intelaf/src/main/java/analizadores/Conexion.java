@@ -16,15 +16,13 @@ import entidades.*;
 public class Conexion {
     
     private static Connection connection;
-    
+    private final String url = "jdbc:mysql://localhost:3306/INTELAF?useSSL=false";
+    private final String user = "usuarioIntelaf";
+    private final String password = "intelaf123";
     //Metodo que sirve para iniciar la conexión
     public void crearConexion(){
         
-        String url = "jdbc:mysql://localhost:3306/INTELAF?useSSL=false";
-        String user = "usuarioIntelaf";
-        String password = "intelaf123";
-        //String user = "root";
-        //String password = "froi040900";
+   
         
         try{
             connection = DriverManager.getConnection(url, user, password);
@@ -53,6 +51,10 @@ public class Conexion {
             System.out.println("Error: " + e.getMessage());
         }
         
+    }
+    
+    public String getUser(){
+        return user;
     }
     
 }

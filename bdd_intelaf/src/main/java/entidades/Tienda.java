@@ -7,7 +7,9 @@ package entidades;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -32,6 +34,25 @@ public class Tienda {
         }catch(SQLException e){
             System.out.println("Error: " + e.getMessage());
         }
+        
+    }
+    
+    public void seleccionTiendas(Connection connection, JComboBox jcom){
+        
+        jcom.addItem("");
+        String query = "SELECT codigo_tienda,nombre FROM TIENDA";
+        try (PreparedStatement preSt = connection.prepareStatement(query)){
+            
+            ResultSet result = preSt.executeQuery();
+            
+            while(result.next()){
+                jcom.addItem(result.getString(1) + "    " + result.getString(2));
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Error: "+ e.getMessage());
+        }
+        
         
     }
     

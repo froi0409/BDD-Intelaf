@@ -5,6 +5,8 @@
  */
 package analizadores;
 
+import javax.swing.JComboBox;
+
 /**
  *
  * @author froi-pc
@@ -90,6 +92,18 @@ public class AnalizadorPalabra {
         }
         
         return estructura.equals(comparador);
+    }
+    
+    public String analizarPalabra(String palabra){
+        
+        for(int i = 0; i < palabra.length(); i++){
+            
+            if(palabra.charAt(i) == ' '){
+                return palabra.substring(0,i);
+            }
+        }
+        
+        return "";
     }
     
     private boolean esLetra(char a){

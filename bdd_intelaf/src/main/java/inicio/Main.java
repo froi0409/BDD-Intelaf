@@ -13,9 +13,6 @@ public class Main {
         
         Empresa e1 = new Empresa();
         e1.inicio();
-        e1.pantallaCargaArchivo();
-//e1.pantallaCargaArchivo();
-        
     }
     
 }

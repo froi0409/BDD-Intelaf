@@ -9,6 +9,7 @@ import javax.swing.JFileChooser;
 import inicio.*;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
 
 /**
  *
@@ -128,8 +129,12 @@ public class CargaDeArchivo extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         try{
+            
+            //Inicia la carga del archivo de texto
             FileReader f1 = new FileReader(jTextField1.getText());
+            this.setVisible(false);
             empresa.leerArchivo(f1);
+            
         }catch(IOException e){
             
         }

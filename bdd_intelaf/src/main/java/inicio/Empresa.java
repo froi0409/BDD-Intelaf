@@ -22,7 +22,7 @@ public class Empresa {
         Conexion connection =  new Conexion();
         connection.crearConexion();
         
-        PantallaInicial p1 = new PantallaInicial();
+        PantallaInicial p1 = new PantallaInicial(this);
         p1.setVisible(true);
     }
     
