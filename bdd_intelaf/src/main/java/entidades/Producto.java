@@ -178,4 +178,32 @@ public class Producto {
         
     }
     
+    public String getPrecio(Connection connection, String cantidad, String codigo_producto){
+        
+        int cant = Integer.parseInt(cantidad);
+        String query = "SELECT precio FROM PRODUCTO WHERE codigo_producto = ?";
+        
+        try(PreparedStatement preSt = connection.prepareStatement(query)){
+            
+            //Le asignamos valor a la incógnita
+            preSt.setString(1, codigo_producto);
+            ResultSet result = preSt.executeQuery();
+            
+            result.next(); //Movemos el cursor al precio
+            
+            String retorno = ""; //Creamos variable de retorno
+            
+            retorno += cant*result.getDouble(1); //Añadimos resultado a la cadena de retorno
+            
+            System.out.println(retorno);
+            
+            return retorno;
+            
+        }catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+        
+    }
+    
 }

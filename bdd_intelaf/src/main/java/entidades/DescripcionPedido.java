@@ -11,4 +11,29 @@ package entidades;
  */
 public class DescripcionPedido {
     
+    private String total;
+    private String cantidad;
+    private String codigo_producto;
+    
+    public DescripcionPedido(String total, String cantidad, String codigo_producto){
+        //Damos valor a los atributos
+        this.total = total;
+        this.cantidad = cantidad;
+        this.codigo_producto = codigo_producto;
+    }
+
+    
+    //Getters
+    public String getTotal(){
+        return total;
+    }
+    
+    public String getCantidad(){
+        return cantidad;
+    }
+    
+    public String getCodigoProducto(){
+        return codigo_producto;
+    }
+    
 }

@@ -38,7 +38,7 @@ public class Pedido {
             
             //Debido a que los pedidos pueden tener "repetición de código", este finally ejecuta  un nuevo insert, el cual ingresa las "repeticiones" del pedido como una llave foranea en
             //une entidad que describe el pedido 
-            String query2 = "INSERT INTO DESCRIPCION_PEDIDO (total,cantidad,codigo_producto,codigo_pedido,anticipo) VALUES (?,?,?,?,?)";
+            String query2 = "INSERT INTO DESCRIPCION_PEDIDO (total,cantidad,codigo_producto,codigo_pedido) VALUES (?,?,?,?)";
             
             try (PreparedStatement preSt2 = Conexion.getConnection().prepareStatement(query2)) {
                 
@@ -46,7 +46,6 @@ public class Pedido {
                 preSt2.setString(2, cantidad);
                 preSt2.setString(3, articulo);
                 preSt2.setString(4, codigo_pedido);
-                preSt2.setString(5, anticipo);
                   
                 preSt2.executeUpdate();
                 

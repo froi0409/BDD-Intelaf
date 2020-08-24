@@ -6,4 +6,6 @@ package entidades;
  */
 public class Existencias {
     
+    
+    
 }
