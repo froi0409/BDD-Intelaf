@@ -27,7 +27,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.codigo_tienda = codigo_tienda;
         System.out.println(codigo_tienda);
-        produ.mostrarProductos(Conexion.getConnection(), jTable1, dtm, codigo_tienda);
+        produ.mostrarProductosTienda(Conexion.getConnection(), jTable1, dtm, codigo_tienda);
         
     }
 
@@ -104,14 +104,14 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         dtm = new javax.swing.table.DefaultTableModel(
             new Object [][] {},
             new String [] {
-                "Codigo", "Nombre", "Fabricante", "Precio", "Descripción", "Granatía"
+                "Codigo", "Nombre", "Fabricante", "Precio", "Descripción", "Granatía", "Cantidad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -127,6 +127,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
 
         jLabel3.setText("Seleccione la opción que desea ejecutar");
 
+        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Consultar", "Modificar", "Ingresar" }));
 
         jLabel4.setText("Codigo");
@@ -147,7 +148,13 @@ public class InterfazEmpleado extends javax.swing.JFrame {
 
         jLabel6.setText("Fabricante");
 
+        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Local", "Todas" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Tienda");
 
@@ -304,6 +311,17 @@ public class InterfazEmpleado extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+        dtm.setRowCount(0);
+        if(jComboBox2.getSelectedIndex() == 0){
+            produ.mostrarProductosTienda(Conexion.getConnection(), jTable1, dtm, codigo_tienda);
+        }else if (jComboBox2.getSelectedIndex() == 1){
+           produ.mostrarProductos(Conexion.getConnection(), jTable1, dtm);
+        }
+        
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -55,6 +55,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("INTELAF");
 
+        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Cliente", "Empleado" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,6 +67,7 @@ public class PantallaInicial extends javax.swing.JFrame {
 
         jLabel3.setText("Usuario:");
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setText("INGRESAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

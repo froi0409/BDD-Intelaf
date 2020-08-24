@@ -19,7 +19,7 @@ public class Tienda {
     
     public static void ingresoTiendaArchivo(Connection connection, String nombre, String direccion, String codigo_tienda, String telefono1){
         
-        String query = "INSERT INTO TIENDA (nombre,direccion,codigo_tienda,telefono1) VALUES (?,?,?,?)";
+        String query = "INSERT INTO TIENDA (nombre,direccion,codigo_tienda,telefono1) VALUES (?,?,?,?)"; //Inserta valores en la tabla tienda
         
         try(PreparedStatement preSt = connection.prepareStatement(query)){
             
@@ -39,20 +39,19 @@ public class Tienda {
     
     public void seleccionTiendas(Connection connection, JComboBox jcom){
         
-        jcom.addItem("");
         String query = "SELECT codigo_tienda,nombre FROM TIENDA";
         try (PreparedStatement preSt = connection.prepareStatement(query)){
             
             ResultSet result = preSt.executeQuery();
             
             while(result.next()){
-                jcom.addItem(result.getString(1) + "    " + result.getString(2));
+                
+                jcom.addItem(result.getString(1) + "    " + result.getString(2)); //Añade items al JComboBox
             }
             
         } catch (SQLException e) {
             System.out.println("Error: "+ e.getMessage());
         }
-        
         
     }
     

@@ -5,7 +5,6 @@
  */
 package entidades;
 
-import interfazGrafica.MyTableModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -51,7 +50,44 @@ public class Producto {
         
     }
     
-    public void mostrarProductos(Connection connection, JTable tabla, DefaultTableModel dtm, String tienda){
+    public void mostrarProductos(Connection connection, JTable tabla, DefaultTableModel dtm){
+        
+        String query = "SELECT * FROM PRODUCTO";
+        String cantTuplas = "SELECT COUNT(*) FROM PRODUCTO";
+        
+        try (PreparedStatement preSt = connection.prepareStatement(query);
+                PreparedStatement preSt2 = connection.prepareStatement(cantTuplas)){
+            ResultSet result = preSt.executeQuery();
+            ResultSet result2 = preSt2.executeQuery();
+            
+            result2.next(); //Encontramos el numero de tuplas que hay en la tabla PRODUCTO
+            
+            String[][] atributos = new String[result2.getInt(1)][6];
+            int cont = 0;
+            
+            while(result.next()){
+                
+                
+                atributos[cont][0] = result.getString(1);
+                atributos[cont][1] = result.getString(2);
+                atributos[cont][2] = result.getString(3);
+                atributos[cont][3] = result.getString(4);
+                atributos[cont][4] = result.getString(5);
+                atributos[cont][5] = result.getString(6);
+                
+                dtm.addRow(atributos[cont]);
+                cont++;
+            }
+            
+            tabla.setModel(dtm);
+            
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        
+    }
+    
+    public void mostrarProductosTienda(Connection connection, JTable tabla, DefaultTableModel dtm, String tienda){
         
         String query = "SELECT codigo_producto FROM EXISTENCIAS WHERE codigo_tienda = ?"; //Obtiene el codigo del producto que existe en la tienda
         String query2 = "SELECT * FROM PRODUCTO WHERE codigo_producto = ?"; //Obtiene las propiedades del producto obtenido en la consulta anterior
@@ -90,6 +126,7 @@ public class Producto {
                 atributos[cont][4] = result2.getString(5);
                 atributos[cont][5] = result2.getString(6);
                 dtm.addRow(atributos[cont]);//agregamos atributos a una fila del modelo de tabla
+                
                 cont++;
             }
             
