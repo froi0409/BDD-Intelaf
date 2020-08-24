@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -85,9 +87,50 @@ public class Pedido {
             }
             
         } catch (Exception e) {
+            
+            System.out.println("Error: " + e.getMessage());
+            
         }
         
     }
     
+    public void mostrarPedidosCurso(Connection connection, JTable tabla, DefaultTableModel dtmp){
+        
+        String query = "SELECT codigo_pedido,anticipo,precio_final,fecha,tienda_origen,tienda_destino,NIT_cliente FROM PEDIDO";
+        String cantTuplas = "SELECT COUNT(*) FROM PEDIDO";
+        
+        try(PreparedStatement preSt = connection.prepareStatement(query);
+            PreparedStatement preSt2 = connection.prepareStatement(cantTuplas)) {
+            
+            ResultSet result = preSt.executeQuery();
+            ResultSet result2 = preSt2.executeQuery();
+            
+            result2.next(); //Hallamos la cantidad de tuplas que tendrá la tabla
+            String[][] atributos = new String[result2.getInt(1)][7];
+            int cont = 0;
+            
+            while(result.next()){
+                
+                atributos[cont][0] = result.getString(1);
+                atributos[cont][1] = result.getString(2);
+                atributos[cont][2] = result.getString(3);
+                atributos[cont][3] = result.getString(4);
+                atributos[cont][4] = result.getString(5);
+                atributos[cont][5] = result.getString(6);
+                atributos[cont][6] = result.getString(7);
+                
+                dtmp.addRow(atributos[cont]);
+                cont++;
+                
+            }
+            
+            tabla.setModel(dtmp);
+            
+        } catch (Exception e) {
+            System.out.println("Error:" + e.getMessage());
+        }
+     
+        
+    }
     
 }

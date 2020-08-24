@@ -55,8 +55,8 @@ public class Producto {
         String nombreTienda = "SELECT nombre FROM TIENDA WHERE codigo_tienda = ?";
         
         try (PreparedStatement preSt = connection.prepareStatement(query);
-                PreparedStatement preSt2 = connection.prepareStatement(cantTuplas);
-                PreparedStatement preSt3 = connection.prepareStatement(nombreTienda)){
+            PreparedStatement preSt2 = connection.prepareStatement(cantTuplas);
+            PreparedStatement preSt3 = connection.prepareStatement(nombreTienda)){
             ResultSet result = preSt.executeQuery();
             ResultSet result2 = preSt2.executeQuery();
             

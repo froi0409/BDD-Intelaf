@@ -8,8 +8,11 @@ package interfazGrafica;
 
 import analizadores.AnalizadorPalabra;
 import analizadores.Conexion;
+import entidades.Pedido;
 import entidades.Producto;
 import entidades.Tienda;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,17 +24,22 @@ public class InterfazEmpleado extends javax.swing.JFrame {
 
     private String codigo_tienda;
     private Producto produ = new Producto();
+    private Pedido pedi = new Pedido();
     private Tienda tien= new Tienda();
-    private DefaultTableModel dtm;
+    private DefaultTableModel dtm, dtmp;
+    private Calendar fecha = new GregorianCalendar();
     
     /** Creates new form InterfazEmpleado
      * @param codigo_tienda */
     public InterfazEmpleado(String codigo_tienda) {
+        
         initComponents();
         this.setLocationRelativeTo(null);
         this.codigo_tienda = codigo_tienda;
         inicializacionConsultas();
         tien.seleccionTiendas(Conexion.getConnection(), jComboBox3);
+        
+        inicializacionConsultaPedido();
         
         
     }
@@ -79,10 +87,13 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         jTextField6 = new javax.swing.JFormattedTextField();
         jTextField7 = new javax.swing.JFormattedTextField();
         jLabel12 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        labelfecha = new javax.swing.JLabel();
+        labelinfopedido = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTablePedido = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,14 +107,14 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(166, Short.MAX_VALUE)
+                .addContainerGap(184, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(355, 355, 355))
+                        .addGap(335, 335, 335))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(194, 194, 194))))
+                        .addGap(176, 176, 176))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,57 +325,77 @@ public class InterfazEmpleado extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Productos", jPanel2);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1010, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 642, Short.MAX_VALUE)
-        );
+        jLabel13.setText("Seleccione la opcion que desea ejecutar");
 
-        jTabbedPane1.addTab("Tiendas", jPanel3);
+        jComboBox4.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Consultar Pedidos", "Solicitar Pedido", "Ingresar Pedido", " " }));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1010, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 642, Short.MAX_VALUE)
-        );
+        labelfecha.setText("YYYY-MM-DD");
 
-        jTabbedPane1.addTab("Compra", jPanel4);
+        labelinfopedido.setText("Ingrese en uno de los siguientes espacios la información del pedido que desea consultar");
+
+        dtmp = new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Anticipo", "Total", "Fecha ", "Tienda Origen", "Tienda Destino", "NIT Cliente"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        };
+        jTablePedido.setModel(dtmp);
+        jScrollPane2.setViewportView(jTablePedido);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1010, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelfecha))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelinfopedido))
+                        .addGap(0, 365, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 642, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(labelfecha))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelinfopedido)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Pedido", jPanel5);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1010, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 642, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Opciones", jPanel6);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -380,6 +411,10 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6ActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         AnalizadorPalabra ap = new AnalizadorPalabra();
         String palabra = (String) jComboBox3.getSelectedItem();
@@ -387,22 +422,22 @@ public class InterfazEmpleado extends javax.swing.JFrame {
             dtm.setRowCount(0);
             String garantia;
             if(jTextField6.getText().length() == 0)
-                garantia = null;
+            garantia = null;
             else{
                 garantia = jTextField6.getText();
             }
             String descripcion;
             if(jTextField5.getText().length() == 0)
-                descripcion = null;
+            descripcion = null;
             else
-                descripcion = jTextField5.getText();
-                
+            descripcion = jTextField5.getText();
+
             produ.ingresarProducto(Conexion.getConnection(), jTextField1.getText(), jTextField2.getText(), jTextField3.getText(), jTextField4.getText(), descripcion, garantia, jTextField7.getText(), ap.analizarPalabra(palabra));
             produ.mostrarProductos(Conexion.getConnection(), jTable1, dtm);
             inicializacionIngresos();
         }
         else
-            JOptionPane.showMessageDialog(null, "No deje los cuadros obligatorios (*) vacios");
+        JOptionPane.showMessageDialog(null, "No deje los cuadros obligatorios (*) vacios");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
@@ -413,7 +448,6 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         }else if (jComboBox2.getSelectedIndex() == 1){
             produ.mostrarProductos(Conexion.getConnection(), jTable1, dtm);
         }
-
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
@@ -429,15 +463,11 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         if(jComboBox1.getSelectedIndex() == 0){
             inicializacionConsultas();
         } else if(jComboBox1.getSelectedIndex() == 1){
-            
+
         } else if (jComboBox1.getSelectedIndex() == 2){
             inicializacionIngresos();
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -584,15 +614,27 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         
     }
     
+    private void inicializacionConsultaPedido(){
+        
+        //Mostramos fecha
+        labelfecha.setText(Integer.toString(fecha.get(Calendar.YEAR))+ "-"+Integer.toString(fecha.get(Calendar.MONTH))+"-"+Integer.toString(fecha.get(Calendar.DATE)));
+        
+        dtmp.setRowCount(0);
+        pedi.mostrarPedidosCurso(Conexion.getConnection(), jTablePedido, dtmp);
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -604,13 +646,12 @@ public class InterfazEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelinfo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTablePedido;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -618,6 +659,8 @@ public class InterfazEmpleado extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JFormattedTextField jTextField6;
     private javax.swing.JFormattedTextField jTextField7;
+    private javax.swing.JLabel labelfecha;
+    private javax.swing.JLabel labelinfopedido;
     // End of variables declaration//GEN-END:variables
 
 }
