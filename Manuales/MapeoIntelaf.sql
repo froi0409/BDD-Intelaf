@@ -73,6 +73,7 @@ CREATE TABLE IF NOT EXISTS PEDIDO(
   tienda_destino VARCHAR(10) NOT NULL,
   NIT_cliente VARCHAR(15),
   tiempo_envio INT NOT NULL,
+  estado VARCHAR(45) DEFAULT 'SIN_ENTREGAR',
   PRIMARY KEY(codigo_pedido),
   FOREIGN KEY(tienda_destino) REFERENCES TIENDA(codigo_tienda),
   FOREIGN KEY(NIT_cliente) REFERENCES CLIENTE(NIT),

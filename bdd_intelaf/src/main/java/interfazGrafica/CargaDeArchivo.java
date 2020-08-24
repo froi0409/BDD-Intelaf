@@ -57,7 +57,7 @@ public class CargaDeArchivo extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setBackground(new java.awt.Color(204, 204, 204));
         jButton2.setText("Buscar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,7 +65,7 @@ public class CargaDeArchivo extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setText("Cargar");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -133,9 +133,14 @@ public class CargaDeArchivo extends javax.swing.JFrame {
         try{
             
             //Inicia la carga del archivo de texto
+            
             FileReader f1 = new FileReader(jTextField1.getText());
             this.setVisible(false);
+            
             empresa.leerArchivo(f1);
+            SeleccionDeTienda seti = new SeleccionDeTienda();
+            seti.setVisible(true);
+            
             
         }catch(IOException e){
             
