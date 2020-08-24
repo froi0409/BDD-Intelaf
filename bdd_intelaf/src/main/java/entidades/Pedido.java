@@ -132,4 +132,16 @@ public class Pedido {
         
     }
     
+    public void ingresoPedido(Connection connection, String codigo_pedido, String anticipo, String precio_final, String fecha, String tienda_origen, String tienda_destino, String NIT_cliente, String tiempo_envio){
+        String insertP = "INSERT INTO PEDIDO (codigo_pedido,anticipo,precio_final,fecha,tienda_origen,tienda_destino,NIT_cliente,tiempo_envio) VALUES(?,?,?,?,?,?,?,?,?)";
+        try (PreparedStatement preSt = connection.prepareStatement(insertP)){
+            
+            
+            
+            
+        } catch (Exception e) {
+            
+        }
+    }
+    
 }

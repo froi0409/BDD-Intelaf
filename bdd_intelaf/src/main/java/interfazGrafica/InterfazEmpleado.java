@@ -9,6 +9,7 @@ package interfazGrafica;
 import analizadores.AnalizadorPalabra;
 import analizadores.Conexion;
 import entidades.DescripcionPedido;
+import entidades.Existencias;
 import entidades.Pedido;
 import entidades.Producto;
 import entidades.Tienda;
@@ -157,7 +158,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, true, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -608,10 +609,13 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         AnalizadorPalabra ap = new AnalizadorPalabra();
+        Existencias exis = new Existencias();
         
-        produ.getPrecio(Conexion.getConnection(), jTextCant.getText(), jTextCodigoP.getText());
-        
-        desped.add(new DescripcionPedido("","",""));
+        String precio = produ.getPrecio(Conexion.getConnection(), jTextCant.getText(), jTextCodigoP.getText());
+        String codTienda = (String) jComboBox5.getSelectedItem();
+        if(exis.verificarExistencias(Conexion.getConnection(), ap.analizarPalabra(codTienda), jTextCodigoP.getText(), jTextCant.getText())){
+            desped.add(new DescripcionPedido(precio, jTextCant.getText(), jTextCodigoP.getText()));
+        }
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
