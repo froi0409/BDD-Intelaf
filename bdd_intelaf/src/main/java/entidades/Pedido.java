@@ -76,10 +76,7 @@ public class Pedido {
             int cantTuplas = result2.getInt(1); 
             for(int i = 0; i < cantTuplas; i++){
                 
-                System.out.println("se ejecutó");
-                
                 result.next();
-                System.out.println(result.getString(1) + "  " + result.getString(2));
                 
                 preSt3.setString(1, result.getString(2));
                 preSt3.setString(2, result.getString(1));
