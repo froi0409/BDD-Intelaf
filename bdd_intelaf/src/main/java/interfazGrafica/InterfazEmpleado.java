@@ -32,6 +32,10 @@ public class InterfazEmpleado extends javax.swing.JFrame {
     private DefaultTableModel dtm, dtmp;
     private Calendar fecha = new GregorianCalendar();
     private ArrayList<DescripcionPedido> desped = new ArrayList<>();
+    private PanelTienda panelTienda = new PanelTienda();
+    private PanelEmpleados panelEmpleados = new PanelEmpleados();
+    private PanelClientes panelClientes = new PanelClientes();
+    
     
     /** Creates new form InterfazEmpleado
      * @param codigo_tienda */
@@ -39,11 +43,13 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         
         initComponents();
         this.setLocationRelativeTo(null);
+        jTabbedPane1.add("Tienda", panelTienda);
+        jTabbedPane1.add("Empleados", panelEmpleados);
+        jTabbedPane1.add("Clientes", panelClientes);
         this.codigo_tienda = codigo_tienda;
         inicializacionConsultas();
         tien.seleccionTiendas(Conexion.getConnection(), jComboBox3);
         tien.seleccionTiendas(Conexion.getConnection(), jComboBox5);
-        
         inicializacionConsultaPedido();
         
         
@@ -229,7 +235,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
             }
         });
 
-        jLabelinfo.setText("Ingrese en uno de los siguientes espacios la información del artículo que desea buscar");
+        jLabelinfo.setText("Ingrese en los siguientes espacios la información del artículo que desea ingresar");
 
         jTextField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0.##"))));
 

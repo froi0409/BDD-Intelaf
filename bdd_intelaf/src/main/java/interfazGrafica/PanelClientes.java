@@ -9,12 +9,12 @@ package interfazGrafica;
  *
  * @author froi-pc
  */
-public class InterfazTienda extends javax.swing.JPanel {
+public class PanelClientes extends javax.swing.JPanel {
 
     /**
-     * Creates new form InterfazTienda
+     * Creates new form PanelClientes
      */
-    public InterfazTienda() {
+    public PanelClientes() {
         initComponents();
     }
 

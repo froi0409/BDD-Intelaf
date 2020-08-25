@@ -2,7 +2,7 @@ CREATE SCHEMA IF NOT EXISTS INTELAF;
 USE INTELAF;
 
 CREATE TABLE IF NOT EXISTS TIENDA(
-  codigo_tienda VARCHAR(10) NOT NULL,
+  codigo_tienda VARCHAR(20) NOT NULL,
   nombre VARCHAR(60) NOT NULL,
   direccion VARCHAR(60) NOT NULL,
   telefono1 VARCHAR(8) NOT NULL,
@@ -13,20 +13,18 @@ CREATE TABLE IF NOT EXISTS TIENDA(
 );
 
 CREATE TABLE IF NOT EXISTS EMPLEADO(
-  codigo_empleado VARCHAR(10) NOT NULL,
+  codigo_empleado VARCHAR(20) NOT NULL,
   nombre VARCHAR(60) NOT NULL,
   telefono VARCHAR(8) NOT NULL,
   DPI VARCHAR(15) NOT NULL,
   NIT VARCHAR(26),
   correo_electronico VARCHAR(45),
   direccion VARCHAR(45),
-  codigo_tienda VARCHAR(10),
-  PRIMARY KEY(codigo_empleado),
-  FOREIGN KEY(codigo_tienda) REFERENCES TIENDA(codigo_tienda)
+  PRIMARY KEY(codigo_empleado)
 );
 
 CREATE TABLE IF NOT EXISTS PRODUCTO(
-  codigo_producto VARCHAR(10) NOT NULL,
+  codigo_producto VARCHAR(20) NOT NULL,
   nombre VARCHAR(60) NOT NULL,
   fabricante VARCHAR(45) NOT NULL,
   precio DECIMAL(6,2) NOT NULL,
@@ -36,7 +34,7 @@ CREATE TABLE IF NOT EXISTS PRODUCTO(
 );
 
 CREATE TABLE IF NOT EXISTS EXISTENCIAS(
-  codigo_existencia VARCHAR(30) NOT NULL,
+  codigo_existencia VARCHAR(40) NOT NULL,
   cantidad INT NOT NULL,
   codigo_producto VARCHAR(10) NOT NULL,
   codigo_tienda VARCHAR(10) NOT NULL,
@@ -58,8 +56,8 @@ CREATE TABLE IF NOT EXISTS CLIENTE(
 
 CREATE TABLE IF NOT EXISTS TIEMPO_ENVIO(
   tiempo INT NOT NULL,
-  tienda1 VARCHAR(10) NOT NULL,
-  tienda2 VARCHAR(10) NOT NULL,
+  tienda1 VARCHAR(20) NOT NULL,
+  tienda2 VARCHAR(20) NOT NULL,
   PRIMARY KEY(tiempo, tienda1, tienda2)
 );
 

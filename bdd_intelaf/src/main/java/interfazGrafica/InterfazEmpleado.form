@@ -371,7 +371,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelinfo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ingrese en uno de los siguientes espacios la informaci&#xf3;n del art&#xed;culo que desea buscar"/>
+                <Property name="text" type="java.lang.String" value="Ingrese en los siguientes espacios la informaci&#xf3;n del art&#xed;culo que desea ingresar"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="InterfazEmpleado_jLabel12"/>
