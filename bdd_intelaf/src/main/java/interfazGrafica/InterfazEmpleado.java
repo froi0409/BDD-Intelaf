@@ -30,23 +30,24 @@ public class InterfazEmpleado extends javax.swing.JFrame {
     private Pedido pedi = new Pedido();
     private Tienda tien= new Tienda();
     private DefaultTableModel dtm, dtmp;
-    private Calendar fecha = new GregorianCalendar();
     private ArrayList<DescripcionPedido> desped = new ArrayList<>();
     private PanelTienda panelTienda = new PanelTienda();
     private PanelEmpleados panelEmpleados = new PanelEmpleados();
     private PanelClientes panelClientes = new PanelClientes();
-    
+    private PanelCompra panelCompra = new PanelCompra();
     
     /** Creates new form InterfazEmpleado
      * @param codigo_tienda */
     public InterfazEmpleado(String codigo_tienda) {
         
         initComponents();
+        Calendar fecha = new GregorianCalendar();
         this.setLocationRelativeTo(null);
-        labelfecha.setText(Integer.toString(fecha.get(Calendar.YEAR))+ "-"+Integer.toString(fecha.get(Calendar.MONTH))+"-"+Integer.toString(fecha.get(Calendar.DATE)));
+        labelfecha.setText(Integer.toString(fecha.get(Calendar.YEAR))+ "-"+(Integer.toString(fecha.get(Calendar.MONTH))+1)+"-"+Integer.toString(fecha.get(Calendar.DATE)));
         jTabbedPane1.add("Tienda", panelTienda);
         jTabbedPane1.add("Empleados", panelEmpleados);
         jTabbedPane1.add("Clientes", panelClientes);
+        jTabbedPane1.add("Compras", panelCompra);
         this.codigo_tienda = codigo_tienda;
         tien.seleccionTiendas(Conexion.getConnection(), jComboBox3);
         tien.seleccionTiendas(Conexion.getConnection(), jComboBox5);
@@ -138,14 +139,13 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(259, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(335, 335, 335))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(176, 176, 176))))
+                .addGap(373, 373, 373)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(218, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(217, 217, 217))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
