@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -59,6 +61,53 @@ public class TiempoEnvio {
         }
         
         return retorno;
+    }
+    
+    public void mostrarTiempos(Connection connection, JTable tabla, DefaultTableModel dtm, String tienda){
+        
+        String query = "SELECT * FROM TIEMPO_ENVIO WHERE tienda1 = ? OR tienda2 = ? ORDER BY tiempo"; //Obtenemos los tiemposde envío en los que está involucrada la tienda
+        String query2 = "SELECT COUNT(*) FROM TIEMPO_ENCIO WHERE tienda1 = ? OR tienda2 = ?"; //Obtenemos la cantidad de tuplas en las cuales se encuentra la tienda involucrada como atributo
+        
+        try (PreparedStatement preSt = connection.prepareStatement(query);
+             PreparedStatement preSt2 = connection.prepareStatement(query2)) {
+            
+            
+            //Asignamos valor a cada una da las incógnitas de cada una de las querys
+           preSt.setString(1, tienda);
+           preSt.setString(2, tienda);
+           preSt2.setString(1, tienda);
+           preSt2.setString(2, tienda);
+           
+           ResultSet result = preSt.executeQuery();
+           ResultSet result2 = preSt2.executeQuery();
+           
+           result2.next(); //Movemos el cursor para obtener la cantidad de tuplas en las cuales está involucrada la tienda que se está manejando
+           String[][] atributos = new String[result2.getInt(1)][3];
+           int cont = 0;
+           
+           while(result.next()){
+               
+               atributos[cont][0] = result.getString(1);
+               atributos[cont][1] = result.getString(2);
+               atributos[cont][2] = result.getString(3);
+               
+               dtm.addRow(atributos[cont]);
+               cont++;
+               
+           }
+            
+           tabla.setModel(dtm);
+           
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        
+    }
+    
+    public void definirTiempoEntreTiendas(Connection connection, String tiempo, String tienda1, String tienda2){
+        
+        //URGENTE
+        
     }
     
 }

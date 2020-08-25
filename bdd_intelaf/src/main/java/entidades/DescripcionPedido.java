@@ -65,6 +65,8 @@ public class DescripcionPedido {
             
         } catch (Exception e) {
             System.out.println("ERROR desc: "+ e.getMessage());
+        } finally{
+            Pedido.actualizarTotalPedido(connection);
         }
     }
     

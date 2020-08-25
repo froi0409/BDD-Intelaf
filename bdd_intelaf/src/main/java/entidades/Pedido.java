@@ -39,7 +39,7 @@ public class Pedido {
         } finally {
             
             //Debido a que los pedidos pueden tener "repetición de código", este finally ejecuta  un nuevo insert, el cual ingresa las "repeticiones" del pedido como una llave foranea en
-            //une entidad que describe el pedido 
+            //una entidad que describe el pedido 
             String query2 = "INSERT INTO DESCRIPCION_PEDIDO (total,cantidad,codigo_producto,codigo_pedido) VALUES (?,?,?,?)";
             
             try (PreparedStatement preSt2 = Conexion.getConnection().prepareStatement(query2)) {
@@ -62,7 +62,7 @@ public class Pedido {
     }
     
     //Funcion que sirve para actualizar los precios totales del pedido
-    private static void actualizarTotalPedido(Connection connection){
+    public static void actualizarTotalPedido(Connection connection){
         
         String query = "SELECT P.codigo_pedido,SUM(D.total) FROM PEDIDO P LEFT JOIN DESCRIPCION_PEDIDO D ON P.codigo_pedido = D.codigo_pedido GROUP BY P.codigo_pedido ORDER BY P.codigo_pedido ASC;";
         String cantTuplasP = "SELECT COUNT(*) FROM PEDIDO ";

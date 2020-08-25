@@ -128,6 +128,7 @@ public class PantallaInicial extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        Conexion user = new Conexion();
         if(jTextField1.getText().equals("")){
             //TEXTFIELD VACIO
         }
@@ -136,20 +137,21 @@ public class PantallaInicial extends javax.swing.JFrame {
         } 
         if(jComboBox1.getSelectedIndex() == 2){
             AnalizadorDeExistencias ae = new AnalizadorDeExistencias(Conexion.getConnection());
+            if(jTextField1.getText().equals(user.getUser())){
             if(ae.analizarExistenciaDeDatos()){
                 System.out.println("holi");
                 SeleccionDeTienda selecT = new SeleccionDeTienda();
                 selecT.setVisible(true);
                 this.setVisible(false);
-            }
-            else{
+                }
+                else{
                 //No se crea ninguna conexion, únicamente sirve para llamar al usuario principal
-                Conexion user = new Conexion();
-                if(jTextField1.getText().equals(user.getUser())){
+                
+                
                     System.out.println("jsjsjs");
                     empresa.pantallaCargaArchivo();
                     this.setVisible(false);
-                }
+                    }
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed

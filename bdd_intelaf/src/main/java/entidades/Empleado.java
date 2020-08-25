@@ -84,6 +84,8 @@ public class Empleado extends Persona{
                 cont++;
             }
             
+            tabla.setModel(dtm);
+            
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }

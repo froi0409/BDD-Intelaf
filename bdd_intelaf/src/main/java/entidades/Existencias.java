@@ -32,7 +32,7 @@ public class Existencias {
                 System.out.println("Verificacion de cantidad de productos realizada con éxito");
                 return true;
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error: asdf" + e.getMessage());
             return false;
         }
         
