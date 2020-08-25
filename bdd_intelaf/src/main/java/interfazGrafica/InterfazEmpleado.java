@@ -34,16 +34,19 @@ public class InterfazEmpleado extends javax.swing.JFrame {
     private PanelTienda panelTienda = new PanelTienda();
     private PanelEmpleados panelEmpleados = new PanelEmpleados();
     private PanelClientes panelClientes = new PanelClientes();
-    private PanelCompra panelCompra = new PanelCompra();
+    private PanelCompra panelCompra = new PanelCompra(codigo_tienda);
     
     /** Creates new form InterfazEmpleado
      * @param codigo_tienda */
     public InterfazEmpleado(String codigo_tienda) {
         
-        initComponents();
         Calendar fecha = new GregorianCalendar();
+        int mes = fecha.get(Calendar.MONTH) + 1;
+        
+        initComponents();
+        
         this.setLocationRelativeTo(null);
-        labelfecha.setText(Integer.toString(fecha.get(Calendar.YEAR))+ "-"+(Integer.toString(fecha.get(Calendar.MONTH))+1)+"-"+Integer.toString(fecha.get(Calendar.DATE)));
+        labelfecha.setText(Integer.toString(fecha.get(Calendar.YEAR))+ "-"+Integer.toString(mes)+"-"+Integer.toString(fecha.get(Calendar.DATE)));
         jTabbedPane1.add("Tienda", panelTienda);
         jTabbedPane1.add("Empleados", panelEmpleados);
         jTabbedPane1.add("Clientes", panelClientes);

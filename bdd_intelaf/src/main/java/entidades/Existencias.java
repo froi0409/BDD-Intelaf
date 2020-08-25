@@ -4,6 +4,7 @@ import excepciones.InsuficienciaDeProductos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +26,7 @@ public class Existencias {
             if(result.getInt(1) < cant){
                 //En el caso de que la cantidad de productos exigidos sea mayor a la de productos existentes,
                 //Esta condición arrojará una excepcion que ha sido creada específicamente para estos casos
+                JOptionPane.showMessageDialog(null, "NO HAY SUFICIENTES PRODUCTOS EN LA TIENDA");
                 throw new InsuficienciaDeProductos();
             }
             else 
