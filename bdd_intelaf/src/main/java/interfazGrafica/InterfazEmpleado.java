@@ -452,6 +452,11 @@ public class InterfazEmpleado extends javax.swing.JFrame {
 
         jButton5.setBackground(new java.awt.Color(204, 204, 204));
         jButton5.setText("INGRESAR PRODUCTO");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -691,6 +696,13 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         desped.clear();
         inicializacionSolicitudPedido();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        pedi.ingresarPedidoTienda(Conexion.getConnection(), jFormattedTextField1.getText());
+        dtmp.setRowCount(0);
+        pedi.mostrarPedidosCurso(Conexion.getConnection(), jTable1, dtmp);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

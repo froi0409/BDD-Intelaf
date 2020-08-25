@@ -97,7 +97,7 @@ public class Pedido {
     
     public void mostrarPedidosCurso(Connection connection, JTable tabla, DefaultTableModel dtmp){
         
-        String query = "SELECT codigo_pedido,anticipo,precio_final,fecha,tienda_origen,tienda_destino,NIT_cliente FROM PEDIDO";
+        String query = "SELECT codigo_pedido,anticipo,precio_final,fecha,tienda_origen,tienda_destino,NIT_cliente FROM PEDIDO WHERE estado = 'SIN_ENTREGAR'";
         String cantTuplas = "SELECT COUNT(*) FROM PEDIDO";
         
         try(PreparedStatement preSt = connection.prepareStatement(query);
@@ -156,6 +156,21 @@ public class Pedido {
         } catch (Exception e) {
             System.out.println("ERROR: unu" + e.getMessage());
         }
+    }
+    
+    public void ingresarPedidoTienda(Connection connection, String codigo_pedido){
+        
+        String update = "UPDATE PEDIDO SET estado = 'EN_TIENDA' WHERE codigo_pedido = ?";
+        
+        try (PreparedStatement preSt = connection.prepareStatement(update)){
+            
+            preSt.setString(1, codigo_pedido);
+            preSt.executeUpdate();
+            
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        
     }
     
 }
