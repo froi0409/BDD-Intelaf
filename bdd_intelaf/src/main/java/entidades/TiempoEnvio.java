@@ -34,7 +34,7 @@ public class TiempoEnvio {
         
     }
     
-    public static String obtenerTiempo(Connection connection, String tienda1, String tienda2){
+    public String obtenerTiempo(Connection connection, String tienda1, String tienda2){
         
         String retorno = "";
         String query = "SELECT tiempo FROM TIEMPO_ENVIO WHERE (tienda1 = ? AND tienda2 = ?) OR (tienda2 = ? AND tienda1 = ?)";

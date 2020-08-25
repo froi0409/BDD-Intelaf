@@ -18,6 +18,8 @@ public class Pedido {
         
         
         String query = "INSERT INTO PEDIDO (codigo_pedido,tienda_origen,tienda_destino,fecha,NIT_cliente,anticipo,precio_final,tiempo_envio) VALUES (?,?,?,?,?,?,?,?)";
+        TiempoEnvio te = new TiempoEnvio();
+        String tiempo = te.obtenerTiempo(Conexion.getConnection(), tienda_origen, tienda_destino);
         
         try(PreparedStatement preSt = connection.prepareStatement(query)){
             
@@ -28,7 +30,7 @@ public class Pedido {
             preSt.setString(5,cliente);
             preSt.setString(6,anticipo);
             preSt.setString(7,total);
-            preSt.setString(8, TiempoEnvio.obtenerTiempo(connection, tienda_origen, tienda_destino));
+            preSt.setString(8, tiempo);
            
             preSt.executeUpdate();
             
@@ -132,15 +134,27 @@ public class Pedido {
         
     }
     
-    public void ingresoPedido(Connection connection, String codigo_pedido, String anticipo, String precio_final, String fecha, String tienda_origen, String tienda_destino, String NIT_cliente, String tiempo_envio){
-        String insertP = "INSERT INTO PEDIDO (codigo_pedido,anticipo,precio_final,fecha,tienda_origen,tienda_destino,NIT_cliente,tiempo_envio) VALUES(?,?,?,?,?,?,?,?,?)";
+    public void ingresoPedido(Connection connection, String codigo_pedido, String anticipo, String precio_final, String fecha, String tienda_origen, String tienda_destino, String NIT_cliente){
+        String insertP = "INSERT INTO PEDIDO (codigo_pedido,anticipo,precio_final,fecha,tienda_origen,tienda_destino,NIT_cliente,tiempo_envio) VALUES(?,?,?,?,?,?,?,?)";
+        TiempoEnvio te = new TiempoEnvio();
+        String tiempo = te.obtenerTiempo(Conexion.getConnection(), tienda_origen, tienda_destino);
+        
         try (PreparedStatement preSt = connection.prepareStatement(insertP)){
             
+            //Agregamos valores a las incógnitas del insert
+            preSt.setString(1, codigo_pedido);
+            preSt.setString(2, anticipo);
+            preSt.setString(3, precio_final);
+            preSt.setString(4, fecha);
+            preSt.setString(5, tienda_origen);
+            preSt.setString(6, tienda_destino);
+            preSt.setString(7, NIT_cliente);
+            preSt.setString(8, tiempo);
             
-            
+            preSt.executeUpdate();
             
         } catch (Exception e) {
-            
+            System.out.println("ERROR: unu" + e.getMessage());
         }
     }
     
