@@ -65,7 +65,6 @@ public class AnalizadorDeExistencias {
         else if (analizarExistenciasTabla("SELECT COUNT(*) FROM COMPRA"))
             return true;
         
-        System.out.println("xd");
         return false;
         
     }

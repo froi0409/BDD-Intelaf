@@ -637,9 +637,9 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         if(jComboBox1.getSelectedIndex() == 0){
             inicializacionConsultas();
         } else if(jComboBox1.getSelectedIndex() == 1){
-
-        } else if (jComboBox1.getSelectedIndex() == 2){
             
+        } else if (jComboBox1.getSelectedIndex() == 2){
+            inicializacionIngresos();
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 

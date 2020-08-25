@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS PEDIDO(
   precio_final DECIMAL(6,2) NOT NULL,
   fecha DATE NOT NULL,
   bonificacion INT,
-  tienda_origen VARCHAR(10) NOT NULL,
+  tienda_origen VARCHAR(10),
   tienda_destino VARCHAR(10) NOT NULL,
   NIT_cliente VARCHAR(15),
   tiempo_envio INT NOT NULL,
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS DESCRIPCION_PEDIDO(
 );
 
 CREATE TABLE IF NOT EXISTS COMPRA(
-  codigo_compra VARCHAR(10) NOT NULL,
+  codigo_compra INT AUTO_INCREMENT,
   fecha DATE NOT NULL,
   nombre_comprador VARCHAR(60),
   codigo_tienda VARCHAR(10) NOT NULL,

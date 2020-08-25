@@ -112,4 +112,24 @@ public class Empleado extends Persona{
         }
     }
     
+    public boolean verificarEmpleado(Connection connection, String codigo_empleado){
+        
+        String query = "SELECT codigo_empleado FROM EMPLEADO WHERE codigo_empleado = ?";
+        try (PreparedStatement preSt = connection.prepareStatement(query)) {
+            
+            preSt.setString(1, codigo_empleado);
+            
+            ResultSet result = preSt.executeQuery();
+            
+            if(result.next()){
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+        
+    }
+    
 }
