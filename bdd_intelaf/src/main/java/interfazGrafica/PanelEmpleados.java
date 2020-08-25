@@ -5,6 +5,8 @@
  */
 package interfazGrafica;
 
+import analizadores.Conexion;
+import entidades.Empleado;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,12 +16,14 @@ import javax.swing.table.DefaultTableModel;
 public class PanelEmpleados extends javax.swing.JPanel {
 
     private DefaultTableModel dtm;
+    private Empleado emple = new Empleado();
     
     /**
      * Creates new form PanelEmpleados
      */
     public PanelEmpleados() {
         initComponents();
+        emple.mostrarEmpleados(Conexion.getConnection(), jTable1, dtm, 1);
     }
 
     /**
@@ -54,6 +58,7 @@ public class PanelEmpleados extends javax.swing.JPanel {
 
         jLabel1.setText("Seleccione la opción que desea ejecutar");
 
+        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Consultar Empleados", "Modificar Empleados", "Ingresar Empleados" }));
 
         jLabel2.setText("Ingrese en los siguientes espacios la información del empleado que desea ingresar");
@@ -72,7 +77,13 @@ public class PanelEmpleados extends javax.swing.JPanel {
 
         jLabel9.setText("Dirección*");
 
+        jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setText("INGRESAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         dtm = new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -180,6 +191,13 @@ public class PanelEmpleados extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        dtm.setRowCount(0);
+        emple.ingresoEmpleado(Conexion.getConnection(), jFormattedTextField1.getText(), jFormattedTextField2.getText(), jFormattedTextField3.getText(), jFormattedTextField4.getText(), jFormattedTextField5.getText(), jFormattedTextField6.getText(), jFormattedTextField7.getText());
+        emple.mostrarEmpleados(Conexion.getConnection(), jTable1, dtm, 1);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
