@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS TIENDA(
   codigo_tienda VARCHAR(20) NOT NULL,
   nombre VARCHAR(60) NOT NULL,
   direccion VARCHAR(60) NOT NULL,
-  telefono1 VARCHAR(8) NOT NULL,
-  telefono2 VARCHAR(8),
+  telefono1 VARCHAR(10) NOT NULL,
+  telefono2 VARCHAR(10),
   correo_electronico VARCHAR(8),
   horario VARCHAR(20),
   PRIMARY KEY(codigo_tienda)

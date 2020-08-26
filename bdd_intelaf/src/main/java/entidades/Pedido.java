@@ -163,7 +163,7 @@ public class Pedido {
             preSt.executeUpdate();
             
         } catch (Exception e) {
-            System.out.println("ERROR: " + e.getMessage());
+            System.out.println("ERROR: Pedido" + e.getMessage());
             JOptionPane.showMessageDialog(null, "Verifique que todos los datos hayan sido\ningresados correctamente, también verifique si el producto\nsolicitado existe en la tienda seleccionada");
         }
     }

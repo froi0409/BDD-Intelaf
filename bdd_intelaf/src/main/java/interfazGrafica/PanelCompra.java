@@ -359,13 +359,19 @@ public class PanelCompra extends javax.swing.JPanel {
         Pedido pedi = new Pedido();
         Compra compra = new Compra();
         //Analizamos que existan productos para añadir a la compra
+        try{
         if(despe.size() > 0){
             
             pedi.ingresoPedido(Conexion.getConnection(), jFormattedTextField4.getText(), "0", "0", labelfecha.getText(), codigo_tienda, codigo_tienda, jFormattedTextField5.getText());
+            compra.definirPedidoComprado(Conexion.getConnection(), jFormattedTextField4.getText());
+            compra.registrarCompra(Conexion.getConnection(), jFormattedTextField4.getText(), codigo_tienda, jFormattedTextField5.getText(), labelfecha.getText());
             for(DescripcionPedido d: despe)
                 d.ingresoDescripcion(Conexion.getConnection(), d.getTotal(), d.getCantidad(), d.getCodigoProducto(), jFormattedTextField4.getText(), codigo_tienda);
-            compra.registrarCompra(Conexion.getConnection(), jFormattedTextField4.getText(), codigo_tienda, jFormattedTextField5.getText(), labelfecha.getText());
+            
             JOptionPane.showMessageDialog(null, "Compra realizada con éxito");
+        }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Compra no registrada, verifica que los datos\nsean correctos");
         }
         
     }//GEN-LAST:event_jButton2ActionPerformed

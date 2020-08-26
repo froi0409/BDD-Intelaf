@@ -40,6 +40,19 @@ public class Compra {
             preSt.executeUpdate();
             
         } catch (Exception e) {
+            System.out.println("Error: compra" + e.getMessage());
+        }
+        
+    }
+    
+    public void definirPedidoComprado(Connection connection, String codigo_pedido){
+        
+        String update = "UPDATE PEDIDO SET estado = 'COMPRADO' WHERE codigo_pedido = ?";
+        
+        try(PreparedStatement preSt = connection.prepareStatement(update)) {
+            preSt.setString(1, codigo_pedido);
+            preSt.executeUpdate();
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
         
