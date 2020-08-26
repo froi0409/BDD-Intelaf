@@ -172,6 +172,8 @@ public class PanelCompra extends javax.swing.JPanel {
             }
         });
 
+        jFormattedTextField3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+
         labelTotal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         labelTotal.setText("Total: Q");
 

@@ -104,6 +104,38 @@ public class TiempoEnvio {
         
     }
     
+    public boolean getTiempoEntreFechas(Connection connection, String codigo_pedido){
+        String query = "SELECT DATEDIFF(NOW(),fecha) FROM PEDIDO WHERE codigo_pedido = ?";
+        String query2 = "SELECT tienda_origen,tienda_destino FROM PEDIDO WHERE codigo_pedido = ?";
+        
+        try (PreparedStatement preSt = connection.prepareStatement(query);
+             PreparedStatement preSt2 = connection.prepareStatement(query2)) {
+            
+            preSt.setString(1, codigo_pedido);
+            preSt2.setString(1, codigo_pedido);
+            
+            ResultSet result = preSt.executeQuery();
+            ResultSet result2 = preSt2.executeQuery();
+            
+            
+            result.next();
+            result2.next();
+            
+            int tiempoPedido = Integer.parseInt(obtenerTiempo(connection, result2.getString(1), result2.getString(2))); //Obtenemos el tiempo que debería durar la entrega del producto
+            
+            if(tiempoPedido < result.getInt(1))
+                return true;
+            
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+        
+        
+        return false;
+        
+    }
+    
     public void definirTiempoEntreTiendas(Connection connection, String tiempo, String tienda1, String tienda2){
         
         //URGENTE

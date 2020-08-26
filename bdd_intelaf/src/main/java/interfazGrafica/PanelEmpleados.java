@@ -65,6 +65,10 @@ public class PanelEmpleados extends javax.swing.JPanel {
 
         jLabel3.setText("Código*");
 
+        jFormattedTextField3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+
+        jFormattedTextField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+
         jLabel4.setText("Nombre*");
 
         jLabel5.setText("Teléfono*");

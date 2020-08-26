@@ -208,4 +208,22 @@ public class Pedido {
         
     }
     
+    public String getCodigoTiendaDestino(Connection connection, String codigo_pedido){
+        
+        String query = "SELECT tienda_destino FROM PEDIDO WHERE codigo_pedido = ?";
+        
+        try (PreparedStatement preSt = connection.prepareStatement(query)) {
+            preSt.setString(1, codigo_pedido);
+            ResultSet result = preSt.executeQuery();
+            
+            result.next();//movemos el puntero para obtener el codigo de la tienda
+            return result.getString(1);
+            
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        
+        return "";
+    }
+    
 }
