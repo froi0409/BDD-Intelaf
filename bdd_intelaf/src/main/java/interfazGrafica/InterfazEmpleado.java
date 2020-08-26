@@ -37,6 +37,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
     private PanelClientes panelClientes = new PanelClientes();
     private PanelCompra panelCompra;
     private Calendar fecha = new GregorianCalendar();
+    private PanelReportes panelReportes;
     
     /** Creates new form InterfazEmpleado
      * @param codigo_tienda */
@@ -51,12 +52,15 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         
         this.codigo_tienda = codigo_tienda;
         panelCompra = new PanelCompra(codigo_tienda);
+        panelReportes = new PanelReportes(codigo_tienda);
         
         labelfecha.setText(Integer.toString(fecha.get(Calendar.YEAR))+ "-"+Integer.toString(mes)+"-"+Integer.toString(fecha.get(Calendar.DATE)));
         jTabbedPane1.add("Tienda", panelTienda);
         jTabbedPane1.add("Empleados", panelEmpleados);
         jTabbedPane1.add("Clientes", panelClientes);
         jTabbedPane1.add("Compras", panelCompra);
+        jTabbedPane1.add("Reportes", panelReportes);
+        
         tien.seleccionTiendas(Conexion.getConnection(), jComboBox3);
         tien.seleccionTiendas(Conexion.getConnection(), jComboBox5);
         inicializacionConsultas();
