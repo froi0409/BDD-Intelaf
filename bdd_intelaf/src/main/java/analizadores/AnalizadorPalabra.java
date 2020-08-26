@@ -5,6 +5,8 @@
  */
 package analizadores;
 
+import javax.swing.JComboBox;
+
 /**
  *
  * @author froi-pc
@@ -53,11 +55,11 @@ public class AnalizadorPalabra {
     //comprueba que el bloque cumpla las condiciones
     private boolean analisisEstructural(String estructura, String linea){
         
-        boolean analizador = true;       
         String subEstructura = "", comparador = "";
         
         if(!estructura.equals("S")){
             
+            //ciclo que sirve para identificar cada termino de la cadena
             for(int i = 0; i < linea.length(); i++){
                 if(esPunto(linea.charAt(i)))
                     subEstructura+='.';
@@ -72,19 +74,14 @@ public class AnalizadorPalabra {
             }
             
             comparador+=subEstructura.charAt(0);
-            int aux;
-            char cursor = subEstructura.charAt(0);
             for(int i = 0; i < subEstructura.length()-1; i++){
                if(esPunto(subEstructura.charAt(i+1))){
                    comparador+='.';
-                   //cursor = '.';
                }
                else if(esGuion(subEstructura.charAt(i+1))){
                    comparador+='-';
-                   //cursor = '-';
                }
                else if (subEstructura.charAt(i) != subEstructura.charAt(i+1)){
-                   //cursor = subEstructura.charAt(i+1);
                    comparador += subEstructura.charAt(i+1);
                }
             }
@@ -94,14 +91,20 @@ public class AnalizadorPalabra {
             comparador+='S';
         }
         
-        if(!estructura.equals(comparador)){
-            return false;
-        } else{
-            return true;
-        }
+        return estructura.equals(comparador);
     }
     
-    
+    public String analizarPalabra(String palabra){
+        
+        for(int i = 0; i < palabra.length(); i++){
+            
+            if(palabra.charAt(i) == ' '){
+                return palabra.substring(0,i);
+            }
+        }
+        
+        return "";
+    }
     
     private boolean esLetra(char a){
         return Character.isLetter(a);

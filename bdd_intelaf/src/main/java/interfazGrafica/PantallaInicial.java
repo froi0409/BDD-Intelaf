@@ -5,7 +5,12 @@
  */
 package interfazGrafica;
 
+import analizadores.*;
+import entidades.Empleado;
+import inicio.Empresa;
+import java.sql.Connection;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,10 +21,19 @@ public class PantallaInicial extends javax.swing.JFrame {
     /**
      * Creates new form PantallaInicial
      */
-    public PantallaInicial() {
+    
+    private Empresa empresa;
+    
+    public PantallaInicial(Empresa empresa) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.empresa = empresa;
     }
+
+    private PantallaInicial() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,6 +57,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("INTELAF");
 
+        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Cliente", "Empleado" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -50,10 +65,11 @@ public class PantallaInicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Seleccione la opción que desea ejecutar");
+        jLabel2.setText("Seleccione su tipo de usuario:");
 
         jLabel3.setText("Usuario:");
 
+        jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setText("INGRESAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,12 +130,50 @@ public class PantallaInicial extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        Empleado emple = new Empleado();
+        Conexion user = new Conexion();
+        
+        AnalizadorDeExistencias ae = new AnalizadorDeExistencias(Conexion.getConnection());
+        
         if(jTextField1.getText().equals("")){
             //TEXTFIELD VACIO
+            JOptionPane.showMessageDialog(null, "Favor ingresar su usuario");
         }
         if(jComboBox1.getSelectedIndex() == 0){
             //EL COMBOBOX NO TIENE ENTIDAD SELECCIONADA
+            JOptionPane.showMessageDialog(null, "Favor selecionar su tipo de usuario");
         } 
+        else if (jComboBox1.getSelectedIndex() == 1){
+         
+           if(ae.analizarExistenciaDeDatos()){
+               
+               //Esta condición se ejecuta cuando si hay datos en el sistema 
+               
+           } else {
+               
+               JOptionPane.showMessageDialog(null, "No hay datos en el sistema, favor de notificar a un empleado");
+               
+           }
+            
+        }
+        else if(jComboBox1.getSelectedIndex() == 2){
+            
+            if(emple.verificarEmpleado(Conexion.getConnection(), jTextField1.getText()) || jTextField1.getText().equals(user.getUser())){
+            if(ae.analizarExistenciaDeDatos()){ //Verificamos la existencia de datos 
+                SeleccionDeTienda selecT = new SeleccionDeTienda();
+                selecT.setVisible(true);
+                this.setVisible(false);
+                }
+                else{
+                //No se crea ninguna conexion, únicamente sirve para llamar al usuario principal
+                
+                    empresa.pantallaCargaArchivo();
+                    this.setVisible(false);
+                    }
+            }
+            else
+                JOptionPane.showMessageDialog(null, "No hay datos en el sistema, favor pedir al jefe que ingrese al sistema con su usuario");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed

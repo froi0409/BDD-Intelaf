@@ -9,6 +9,7 @@ import javax.swing.JFileChooser;
 import inicio.*;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
 
 /**
  *
@@ -56,6 +57,7 @@ public class CargaDeArchivo extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(204, 204, 204));
         jButton2.setText("Buscar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,6 +65,7 @@ public class CargaDeArchivo extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setText("Cargar");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -128,8 +131,17 @@ public class CargaDeArchivo extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         try{
+            
+            //Inicia la carga del archivo de texto
+            
             FileReader f1 = new FileReader(jTextField1.getText());
+            this.setVisible(false);
+            
             empresa.leerArchivo(f1);
+            SeleccionDeTienda seti = new SeleccionDeTienda();
+            seti.setVisible(true);
+            
+            
         }catch(IOException e){
             
         }
