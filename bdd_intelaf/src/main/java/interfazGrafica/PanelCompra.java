@@ -30,7 +30,7 @@ public class PanelCompra extends javax.swing.JPanel {
     private Pedido pedido = new Pedido();
     private DefaultTableModel dtmDesc;
     private DefaultTableModel dtmPedi;
-    
+    private double label = 0;
     
     /**
      * Creates new form PanelCompra
@@ -336,7 +336,7 @@ public class PanelCompra extends javax.swing.JPanel {
         
         //obtenemos el precio del producto solicitado
         String precio = produ.getPrecio(Conexion.getConnection(), jFormattedTextField3.getText(), jFormattedTextField2.getText());
-        
+        labelDinero.setText(precio);
         //Verificamos que el producto tenga existencias
         if(exis.verificarExistencias(Conexion.getConnection(), codigo_tienda, jFormattedTextField2.getText(), jFormattedTextField3.getText())){
             despe.add(new DescripcionPedido(precio, jFormattedTextField3.getText(), jFormattedTextField2.getText()));
@@ -384,6 +384,8 @@ public class PanelCompra extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        despe.clear();
+        labelDinero.setText("0.00");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void inicializacionCompraPedido(){

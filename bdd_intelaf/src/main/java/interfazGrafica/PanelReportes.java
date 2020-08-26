@@ -7,6 +7,9 @@ package interfazGrafica;
 
 import analizadores.Conexion;
 import entidades.Cliente;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import reportes.*;
 
 /**
@@ -152,6 +155,11 @@ public class PanelReportes extends javax.swing.JPanel {
 
         jButton9.setBackground(new java.awt.Color(204, 204, 204));
         jButton9.setText("Exportar");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setBackground(new java.awt.Color(204, 204, 204));
         jButton10.setText("Cargar");
@@ -170,6 +178,11 @@ public class PanelReportes extends javax.swing.JPanel {
 
         jButton12.setBackground(new java.awt.Color(204, 204, 204));
         jButton12.setText("Exportar");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Productos más vendidos por una tienda");
 
@@ -183,6 +196,11 @@ public class PanelReportes extends javax.swing.JPanel {
 
         jButton14.setBackground(new java.awt.Color(204, 204, 204));
         jButton14.setText("Exportar");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("Productos que nunca se han vendido");
 
@@ -196,6 +214,11 @@ public class PanelReportes extends javax.swing.JPanel {
 
         jButton16.setBackground(new java.awt.Color(204, 204, 204));
         jButton16.setText("Exportar");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -207,6 +230,11 @@ public class PanelReportes extends javax.swing.JPanel {
 
         jButton17.setBackground(new java.awt.Color(204, 204, 204));
         jButton17.setText("Exportar");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
 
         jButton18.setBackground(new java.awt.Color(204, 204, 204));
         jButton18.setText("Cargar");
@@ -426,6 +454,7 @@ public class PanelReportes extends javax.swing.JPanel {
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         //CARGA DE PRODUCTOS MÁS VENDIDOS POR TIENDA
+        jTextArea1.setText("");
         ProductosPorTienda ppt = new ProductosPorTienda();
         ppt.cargarReporte(Conexion.getConnection(), jTextArea1, tienda);
     }//GEN-LAST:event_jButton13ActionPerformed
@@ -433,6 +462,48 @@ public class PanelReportes extends javax.swing.JPanel {
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        ComprasCliente cc = new ComprasCliente();
+        String nit = (String) jComboBox1.getSelectedItem();
+        try {
+            cc.exportarReporte(Conexion.getConnection(), nit, "CompraCliente_tienda_" + tienda);
+        } catch (IOException ex) {
+            Logger.getLogger(PanelReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        //EXPORTAR PEDIDOS EN CURSO
+        PedidosEnCurso pec = new PedidosEnCurso();
+        String nit = (String) jComboBox2.getSelectedItem();
+        try {
+            pec.exportarReporte(Conexion.getConnection(), nit, "PedidosEnCurso_" + tienda);
+        } catch (IOException ex) {
+            Logger.getLogger(PanelReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        //productos más vendidos por tienda
+        ProductosPorTienda ppt = new ProductosPorTienda();
+        try {
+            ppt.exportarArchivo(Conexion.getConnection(), tienda,"CompraPorTienda_"+ tienda);
+        } catch (IOException ex) {
+            Logger.getLogger(PanelReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton16ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

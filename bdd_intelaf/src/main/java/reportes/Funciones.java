@@ -79,7 +79,7 @@ public class Funciones {
             
             linea.write("<html>\n" +
                         "<head>\n" +
-                        "  <title>Mi documento básico</title>\n" +
+                        "  <title></title>\n" +
                         "</head>\n" +
                         "<body>\n");
             
