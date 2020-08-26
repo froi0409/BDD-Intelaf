@@ -93,9 +93,19 @@ public class PanelReportes extends javax.swing.JPanel {
 
         jButton3.setBackground(new java.awt.Color(204, 204, 204));
         jButton3.setText("Cargar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(204, 204, 204));
         jButton4.setText("Exportar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Pedidos Atrasados");
 
@@ -109,6 +119,11 @@ public class PanelReportes extends javax.swing.JPanel {
 
         jButton6.setBackground(new java.awt.Color(204, 204, 204));
         jButton6.setText("Exportar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(204, 204, 204));
         jButton7.setText("Cargar");
@@ -122,6 +137,11 @@ public class PanelReportes extends javax.swing.JPanel {
 
         jButton8.setBackground(new java.awt.Color(204, 204, 204));
         jButton8.setText("Exportar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Compras Realizadas por algún cliente");
 
@@ -169,7 +189,7 @@ public class PanelReportes extends javax.swing.JPanel {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jLabel11.setText("Compras realizadas por un cliente");
+        jLabel11.setText("Pedidos en curso de un cliente");
 
         jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -342,7 +362,8 @@ public class PanelReportes extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
         //EXPORTAR PEDIDOS QUE LLEGARAN A LA TIENDA
-        jTextArea1.append("HOLA ");
+        PedidosCaminoTienda pct = new PedidosCaminoTienda();
+        pct.exportarReporte(Conexion.getConnection(), tienda, "PedidosCaminoATienda_tienda_"+tienda);
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -359,6 +380,32 @@ public class PanelReportes extends javax.swing.JPanel {
         PedidosAtrasados pa = new PedidosAtrasados();
         pa.cargarReporte(Conexion.getConnection(), tienda, jTextArea1);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+
+        //EXPORTACION PEDIDOS SALIENTES
+        PedidosSalientes ps = new PedidosSalientes();
+        ps.exportarReporte(Conexion.getConnection(), tienda, "PedidosSalientes_tienda_" + tienda);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        //EXPORTECION DE PEDIDOS ATRASADOS
+        PedidosAtrasados pa = new PedidosAtrasados();
+        pa.exportarReporte(Conexion.getConnection(), tienda, "PedidosAtrasados_tienda_" + tienda);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        //EXPORTACION DE PEDIDOS EN TIEMPO
+        PedidosEnTiempo pt = new PedidosEnTiempo();
+        pt.exportarReporte(Conexion.getConnection(), tienda, "PedidosEnTiempo_tienda_" + tienda);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //CARGA DE PEDIDOS EN TIEMPO DE INGRESO
+        jTextArea1.setText("");
+        PedidosEnTiempo pt = new PedidosEnTiempo();
+        pt.cargarReporte(Conexion.getConnection(), tienda, jTextArea1);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

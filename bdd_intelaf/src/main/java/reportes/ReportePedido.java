@@ -15,5 +15,6 @@ import javax.swing.JTextArea;
 public abstract class ReportePedido {
     
     public abstract void cargarReporte(Connection connection, String codigo_tienda, JTextArea txa);
+    public abstract void exportarReporte(Connection connection, String codigo_tienda, String ruta);
     
 }
