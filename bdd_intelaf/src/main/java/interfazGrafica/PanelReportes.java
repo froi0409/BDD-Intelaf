@@ -6,6 +6,7 @@
 package interfazGrafica;
 
 import analizadores.Conexion;
+import entidades.Cliente;
 import reportes.*;
 
 /**
@@ -15,6 +16,7 @@ import reportes.*;
 public class PanelReportes extends javax.swing.JPanel {
     
     private String tienda;
+    private Cliente cliente = new Cliente();
     
     /**
      * Creates new form PanelReportes
@@ -22,7 +24,8 @@ public class PanelReportes extends javax.swing.JPanel {
     public PanelReportes(String tienda) {
         initComponents();
         this.tienda = tienda;
-        
+        cliente.comboBoxClientes(Conexion.getConnection(), jComboBox1);
+        cliente.comboBoxClientes(Conexion.getConnection(), jComboBox2);
     }
 
     /**
@@ -146,7 +149,6 @@ public class PanelReportes extends javax.swing.JPanel {
         jLabel6.setText("Compras Realizadas por algún cliente");
 
         jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton9.setBackground(new java.awt.Color(204, 204, 204));
         jButton9.setText("Exportar");
@@ -192,7 +194,6 @@ public class PanelReportes extends javax.swing.JPanel {
         jLabel11.setText("Pedidos en curso de un cliente");
 
         jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton17.setBackground(new java.awt.Color(204, 204, 204));
         jButton17.setText("Exportar");
@@ -343,7 +344,10 @@ public class PanelReportes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        //CARGA DE COMPRAS REALIZADAS POR ALGÚN CLIENTE
+        ComprasCliente cc = new ComprasCliente();
+        String nit = (String) jComboBox1.getSelectedItem();
+        cc.cargarReporte(Conexion.getConnection(), jTextArea1, nit);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed

@@ -705,8 +705,8 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         // TODO add your handling code here:
         TiempoEnvio te = new TiempoEnvio();
         String codigoTienda = pedi.getCodigoTiendaDestino(Conexion.getConnection(), jFormattedTextField1.getText());
-        if(codigoTienda.equals(codigo_tienda)){
-            if(te.getTiempoEntreFechas(Conexion.getConnection(), jFormattedTextField1.getText())){
+        if(codigoTienda.equals(codigo_tienda)){ //Evita que el empleado ingrese algún pedido correspondiente a otra tienda
+            if(te.getTiempoEntreFechas(Conexion.getConnection(), jFormattedTextField1.getText())){ //Detecta que el pedido ya pueda estar en la tienda
             pedi.ingresarPedidoTienda(Conexion.getConnection(), jFormattedTextField1.getText());
             dtmp.setRowCount(0);
             pedi.mostrarPedidosCurso(Conexion.getConnection(), jTable1, dtmp);
