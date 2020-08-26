@@ -175,6 +175,11 @@ public class PanelReportes extends javax.swing.JPanel {
 
         jButton13.setBackground(new java.awt.Color(204, 204, 204));
         jButton13.setText("Cargar");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jButton14.setBackground(new java.awt.Color(204, 204, 204));
         jButton14.setText("Exportar");
@@ -183,6 +188,11 @@ public class PanelReportes extends javax.swing.JPanel {
 
         jButton15.setBackground(new java.awt.Color(204, 204, 204));
         jButton15.setText("Cargar");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
 
         jButton16.setBackground(new java.awt.Color(204, 204, 204));
         jButton16.setText("Exportar");
@@ -351,7 +361,10 @@ public class PanelReportes extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-        // TODO add your handling code here:
+        //CARGA DE PEDIDOS EN CURSO 
+        PedidosEnCurso pec = new PedidosEnCurso();
+        String nit = (String) jComboBox2.getSelectedItem();
+        pec.cargarReporte(Conexion.getConnection(), jTextArea1, nit);
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -410,6 +423,16 @@ public class PanelReportes extends javax.swing.JPanel {
         PedidosEnTiempo pt = new PedidosEnTiempo();
         pt.cargarReporte(Conexion.getConnection(), tienda, jTextArea1);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        //CARGA DE PRODUCTOS MÁS VENDIDOS POR TIENDA
+        ProductosPorTienda ppt = new ProductosPorTienda();
+        ppt.cargarReporte(Conexion.getConnection(), jTextArea1, tienda);
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton15ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
