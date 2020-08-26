@@ -116,6 +116,10 @@ public class PanelTienda extends javax.swing.JPanel {
 
         jLabel5.setText("Código*");
 
+        jFormattedTextField11.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+
+        jFormattedTextField14.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+
         jButton2.setBackground(new java.awt.Color(204, 204, 204));
         jButton2.setText("INGRESAR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -245,7 +249,7 @@ public class PanelTienda extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         
-        tien.insertarTiendas(Conexion.getConnection(), jFormattedTextField8.getText(), jFormattedTextField9.getText(), jFormattedTextField10.getText(), jFormattedTextField11.getText(), jFormattedTextField12.getText(), jFormattedTextField13.getText(), jFormattedTextField14.getText());
+        tien.insertarTiendas(Conexion.getConnection(), jFormattedTextField8.getText(), jFormattedTextField10.getText(), jFormattedTextField9.getText(), jFormattedTextField11.getText(), jFormattedTextField14.getText(), jFormattedTextField12.getText(), jFormattedTextField13.getText());
         tbm.setRowCount(0);
         tien.mostrarTiendas(Conexion.getConnection(), jTableTiendas, tbm, 1);
     }//GEN-LAST:event_jButton2ActionPerformed

@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -116,6 +117,24 @@ public class Cliente extends Persona {
             System.out.println("Error: " + e.getMessage());
         }
         
+        
+    }
+    
+    public void comboBoxClientes(Connection connection, JComboBox combo){
+        
+        String query = "SELECT NIT FROM CLIENTE";
+        try (PreparedStatement preSt = connection.prepareStatement(query)) {
+            
+            ResultSet result = preSt.executeQuery();
+            
+            //Llenamos el combobox con los diferentes nits de los diferentes clientes 
+            while(result.next()){
+                combo.addItem(result.getString(1));
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
         
     }
     

@@ -37,6 +37,8 @@ public class InterfazEmpleado extends javax.swing.JFrame {
     private PanelClientes panelClientes = new PanelClientes();
     private PanelCompra panelCompra;
     private Calendar fecha = new GregorianCalendar();
+    private PanelReportes panelReportes;
+    private PanelTiempo panelTiempo = new PanelTiempo();
     
     /** Creates new form InterfazEmpleado
      * @param codigo_tienda */
@@ -51,13 +53,16 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         
         this.codigo_tienda = codigo_tienda;
         panelCompra = new PanelCompra(codigo_tienda);
+        panelReportes = new PanelReportes(codigo_tienda);
         
         labelfecha.setText(Integer.toString(fecha.get(Calendar.YEAR))+ "-"+Integer.toString(mes)+"-"+Integer.toString(fecha.get(Calendar.DATE)));
         jTabbedPane1.add("Tienda", panelTienda);
         jTabbedPane1.add("Empleados", panelEmpleados);
         jTabbedPane1.add("Clientes", panelClientes);
         jTabbedPane1.add("Compras", panelCompra);
-        tien.seleccionTiendas(Conexion.getConnection(), jComboBox3);
+        jTabbedPane1.add("Tiempos", panelTiempo);
+        jTabbedPane1.add("Reportes", panelReportes);
+        
         tien.seleccionTiendas(Conexion.getConnection(), jComboBox5);
         inicializacionConsultas();
         inicializacionConsultaPedido();
@@ -99,9 +104,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLabelinfo = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JFormattedTextField();
@@ -233,11 +236,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
 
         jLabel9.setText("Garantía");
 
-        jLabel10.setText("Tienda");
-
         jLabel11.setText("Tienda de busqueda");
-
-        jComboBox3.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setText("INGRESAR");
@@ -249,7 +248,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
 
         jLabelinfo.setText("Ingrese en los siguientes espacios la información del artículo que desea ingresar");
 
-        jTextField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0.##"))));
+        jTextField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
 
         jTextField6.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         jTextField6.setText("0");
@@ -274,7 +273,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -286,18 +285,12 @@ public class InterfazEmpleado extends javax.swing.JFrame {
                                                     .addComponent(jLabel12))
                                                 .addGap(18, 18, 18)
                                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel10)
-                                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel5)
-                                                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                    .addComponent(jLabel5)
+                                                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel6)
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -312,11 +305,13 @@ public class InterfazEmpleado extends javax.swing.JFrame {
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel9)
                                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel11))))
-                            .addComponent(jLabelinfo))
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11)))
+                            .addComponent(jLabelinfo)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 83, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -350,12 +345,9 @@ public class InterfazEmpleado extends javax.swing.JFrame {
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel12))
+                .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -599,8 +591,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        AnalizadorPalabra ap = new AnalizadorPalabra();
-        String palabra = (String) jComboBox3.getSelectedItem();
+        
         if(jTextField1.getText().length() >= 1 && jTextField2.getText().length() >= 1 && jTextField3.getText().length() >= 1 && jTextField4.getText().length() >= 1 && jTextField7.getText().length() >= 1){
             dtm.setRowCount(0);
             String garantia;
@@ -615,7 +606,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
             else
             descripcion = jTextField5.getText();
 
-            produ.ingresarProducto(Conexion.getConnection(), jTextField1.getText(), jTextField2.getText(), jTextField3.getText(), jTextField4.getText(), descripcion, garantia, jTextField7.getText(), ap.analizarPalabra(palabra));
+            produ.ingresarProducto(Conexion.getConnection(), jTextField1.getText(), jTextField2.getText(), jTextField3.getText(), jTextField4.getText(), descripcion, garantia, jTextField7.getText(), codigo_tienda);
             produ.mostrarProductos(Conexion.getConnection(), jTable1, dtm);
             inicializacionIngresos();
         }
@@ -714,9 +705,19 @@ public class InterfazEmpleado extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        pedi.ingresarPedidoTienda(Conexion.getConnection(), jFormattedTextField1.getText());
-        dtmp.setRowCount(0);
-        pedi.mostrarPedidosCurso(Conexion.getConnection(), jTable1, dtmp);
+        TiempoEnvio te = new TiempoEnvio();
+        String codigoTienda = pedi.getCodigoTiendaDestino(Conexion.getConnection(), jFormattedTextField1.getText());
+        if(codigoTienda.equals(codigo_tienda)){ //Evita que el empleado ingrese algún pedido correspondiente a otra tienda
+            if(te.getTiempoEntreFechas(Conexion.getConnection(), jFormattedTextField1.getText())){ //Detecta que el pedido ya pueda estar en la tienda
+            pedi.ingresarPedidoTienda(Conexion.getConnection(), jFormattedTextField1.getText());
+            dtmp.setRowCount(0);
+            pedi.mostrarPedidosCurso(Conexion.getConnection(), jTable1, dtmp);
+            } else{
+                JOptionPane.showMessageDialog(null,"El producto aún no está en la tienda");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No puedes registrar el producto de otra tienda");
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -780,7 +781,6 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         jLabel7.setVisible(false);
         jLabel8.setVisible(false);
         jLabel9.setVisible(false);
-        jLabel10.setVisible(false);
         jLabel11.setVisible(true);
         
         //Modificaion de texto de labels
@@ -788,13 +788,11 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         jLabel5.setText("Nombre");
         jLabel6.setText("Fabricante");
         jLabel7.setText("Precio (en Q)");
-        jLabel10.setText("Tienda");
         jLabel9.setText("Garantía (en años)");
         jLabel11.setText("Consulta");
         
         //Visibilidad de JComboBox
         jComboBox2.setVisible(true);
-        jComboBox3.setVisible(false);
         
         //Visibilidad de Botones
         jButton1.setVisible(false);
@@ -835,7 +833,6 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         jLabel7.setVisible(true);
         jLabel8.setVisible(true);
         jLabel9.setVisible(true);
-        jLabel10.setVisible(true);
         jLabel11.setVisible(false);
         
         //Modificaion de texto de labels
@@ -843,13 +840,11 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         jLabel5.setText("Nombre*");
         jLabel6.setText("Fabricante*");
         jLabel7.setText("Precio (en Q)*");
-        jLabel10.setText("Tienda*");
         jLabel9.setText("Garantía (en años)");
         jLabel12.setText("Cantidad*");
         
         //Visibilidad de JComboBox
         jComboBox2.setVisible(false);
-        jComboBox3.setVisible(true);
         
         
         //Visibilidad de Botones
@@ -955,12 +950,10 @@ public class InterfazEmpleado extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

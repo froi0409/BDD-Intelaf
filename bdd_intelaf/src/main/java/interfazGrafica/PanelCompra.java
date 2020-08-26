@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,6 +28,9 @@ public class PanelCompra extends javax.swing.JPanel {
     private ArrayList<DescripcionPedido> despe = new ArrayList<>();
     private String codigo_tienda;
     private Pedido pedido = new Pedido();
+    private DefaultTableModel dtmDesc;
+    private DefaultTableModel dtmPedi;
+    private double label = 0;
     
     /**
      * Creates new form PanelCompra
@@ -172,6 +176,8 @@ public class PanelCompra extends javax.swing.JPanel {
             }
         });
 
+        jFormattedTextField3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+
         labelTotal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         labelTotal.setText("Total: Q");
 
@@ -308,8 +314,8 @@ public class PanelCompra extends javax.swing.JPanel {
                     .addComponent(jFormattedTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jFormattedTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addGap(31, 31, 31)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                 .addContainerGap())
@@ -330,7 +336,7 @@ public class PanelCompra extends javax.swing.JPanel {
         
         //obtenemos el precio del producto solicitado
         String precio = produ.getPrecio(Conexion.getConnection(), jFormattedTextField3.getText(), jFormattedTextField2.getText());
-        
+        labelDinero.setText(precio);
         //Verificamos que el producto tenga existencias
         if(exis.verificarExistencias(Conexion.getConnection(), codigo_tienda, jFormattedTextField2.getText(), jFormattedTextField3.getText())){
             despe.add(new DescripcionPedido(precio, jFormattedTextField3.getText(), jFormattedTextField2.getText()));
@@ -378,6 +384,8 @@ public class PanelCompra extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        despe.clear();
+        labelDinero.setText("0.00");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void inicializacionCompraPedido(){
@@ -387,6 +395,9 @@ public class PanelCompra extends javax.swing.JPanel {
         jFormattedTextField1.setVisible(true);
         jFormattedTextField2.setVisible(false);
         jFormattedTextField3.setVisible(false);
+        jFormattedTextField4.setVisible(false);
+        jFormattedTextField5.setVisible(false);
+        
         
         jButton1.setVisible(false);
         jButton2.setVisible(false);
@@ -396,10 +407,14 @@ public class PanelCompra extends javax.swing.JPanel {
         labelinfo.setVisible(true);
         labelinfo1.setVisible(true);
         labelinfo2.setVisible(false);
+        jLabel2.setVisible(false);
+        jLabel3.setVisible(false);
         jLabel4.setVisible(true);
         jLabel5.setVisible(true);
         jLabel6.setVisible(false);
         jLabel7.setVisible(false);
+        
+        
         
     }
     
@@ -410,6 +425,8 @@ public class PanelCompra extends javax.swing.JPanel {
         jFormattedTextField1.setVisible(false);
         jFormattedTextField2.setVisible(true);
         jFormattedTextField3.setVisible(true);
+        jFormattedTextField4.setVisible(true);
+        jFormattedTextField5.setVisible(true);
         
         jButton1.setVisible(true);
         jButton2.setVisible(true);
@@ -419,10 +436,14 @@ public class PanelCompra extends javax.swing.JPanel {
         labelinfo.setVisible(false);
         labelinfo1.setVisible(false);
         labelinfo2.setVisible(true);
+        jLabel2.setVisible(true);
+        jLabel3.setVisible(true);
         jLabel4.setVisible(false);
         jLabel5.setVisible(false);
         jLabel6.setVisible(true);
         jLabel7.setVisible(true);
+        
+        
         
     }
     
