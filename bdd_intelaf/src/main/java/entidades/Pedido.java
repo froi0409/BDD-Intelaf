@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -137,7 +138,15 @@ public class Pedido {
     public void ingresoPedido(Connection connection, String codigo_pedido, String anticipo, String precio_final, String fecha, String tienda_origen, String tienda_destino, String NIT_cliente){
         String insertP = "INSERT INTO PEDIDO (codigo_pedido,anticipo,precio_final,fecha,tienda_origen,tienda_destino,NIT_cliente,tiempo_envio) VALUES(?,?,?,?,?,?,?,?)";
         TiempoEnvio te = new TiempoEnvio();
-        String tiempo = te.obtenerTiempo(Conexion.getConnection(), tienda_origen, tienda_destino);
+        String tiempo;
+        
+        //Cuando se realiza una compra en tienda, la lógica se maneja como pedido, por lo tanto
+        //Si la tienda de origen es la misma que la tienda destino, el tiempo entre tiendas es 0
+        if(!tienda_origen.equals(tienda_destino))
+            tiempo = te.obtenerTiempo(Conexion.getConnection(), tienda_origen, tienda_destino);
+        else
+            tiempo = "0";
+        
         
         try (PreparedStatement preSt = connection.prepareStatement(insertP)){
             
@@ -154,7 +163,8 @@ public class Pedido {
             preSt.executeUpdate();
             
         } catch (Exception e) {
-            System.out.println("ERROR: unu" + e.getMessage());
+            System.out.println("ERROR: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Verifique que todos los datos hayan sido\ningresados correctamente, también verifique si el producto\nsolicitado existe en la tienda seleccionada");
         }
     }
     
@@ -169,6 +179,31 @@ public class Pedido {
             
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
+        }
+        
+    }
+    
+    public String totalPedido(Connection connection, String codigo_pedido, String tienda_destino){
+        
+        String query = "SELECT precio_final FROM PEDIDO WHERE codigo_pedido = ? AND tienda_destino = ? AND estado = 'EN_TIENDA'";
+        
+        try (PreparedStatement preSt = connection.prepareStatement(query)){
+            
+            preSt.setString(1, codigo_pedido);
+            preSt.setString(2, tienda_destino);
+            
+            ResultSet result = preSt.executeQuery();
+            
+            if(result.next())
+                return result.getString(1);
+            else 
+                JOptionPane.showMessageDialog(null, "El pedido no ha sido ingresado a la tienda");
+                return "0.00";
+            
+            
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return "0.00";
         }
         
     }

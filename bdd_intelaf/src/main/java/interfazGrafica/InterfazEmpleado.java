@@ -12,6 +12,7 @@ import entidades.DescripcionPedido;
 import entidades.Existencias;
 import entidades.Pedido;
 import entidades.Producto;
+import entidades.TiempoEnvio;
 import entidades.Tienda;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,24 +35,28 @@ public class InterfazEmpleado extends javax.swing.JFrame {
     private PanelTienda panelTienda = new PanelTienda();
     private PanelEmpleados panelEmpleados = new PanelEmpleados();
     private PanelClientes panelClientes = new PanelClientes();
-    private PanelCompra panelCompra = new PanelCompra(codigo_tienda);
+    private PanelCompra panelCompra;
+    private Calendar fecha = new GregorianCalendar();
     
     /** Creates new form InterfazEmpleado
      * @param codigo_tienda */
     public InterfazEmpleado(String codigo_tienda) {
         
-        Calendar fecha = new GregorianCalendar();
+        
         int mes = fecha.get(Calendar.MONTH) + 1;
         
         initComponents();
         
         this.setLocationRelativeTo(null);
+        
+        this.codigo_tienda = codigo_tienda;
+        panelCompra = new PanelCompra(codigo_tienda);
+        
         labelfecha.setText(Integer.toString(fecha.get(Calendar.YEAR))+ "-"+Integer.toString(mes)+"-"+Integer.toString(fecha.get(Calendar.DATE)));
         jTabbedPane1.add("Tienda", panelTienda);
         jTabbedPane1.add("Empleados", panelEmpleados);
         jTabbedPane1.add("Clientes", panelClientes);
         jTabbedPane1.add("Compras", panelCompra);
-        this.codigo_tienda = codigo_tienda;
         tien.seleccionTiendas(Conexion.getConnection(), jComboBox3);
         tien.seleccionTiendas(Conexion.getConnection(), jComboBox5);
         inicializacionConsultas();
@@ -455,7 +460,7 @@ public class InterfazEmpleado extends javax.swing.JFrame {
         jLabel21.setText("Codigo Pedido a Registrar");
 
         jButton5.setBackground(new java.awt.Color(204, 204, 204));
-        jButton5.setText("INGRESAR PRODUCTO");
+        jButton5.setText("INGRESAR PEDIDO");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -681,17 +686,23 @@ public class InterfazEmpleado extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         AnalizadorPalabra ap = new AnalizadorPalabra();
+        TiempoEnvio tiem = new TiempoEnvio();
         String codTienda = (String) jComboBox5.getSelectedItem();
-        String precio = produ.getPrecio(Conexion.getConnection(), jTextCant.getText(), jTextCodigoP.getText());
+        
+        //Analizamos que existan subpedidos para agregar al pedio 
         if(desped.size() > 0){
-            pedi.ingresoPedido(Conexion.getConnection(), jTextCodigoPed.getText(), jTextAnticipo.getText(), precio, labelfecha.getText(), ap.analizarPalabra(codTienda), codigo_tienda, jTextNit.getText());
+            pedi.ingresoPedido(Conexion.getConnection(), jTextCodigoPed.getText(), jTextAnticipo.getText(), "0", labelfecha.getText(), ap.analizarPalabra(codTienda), codigo_tienda, jTextNit.getText());
             for(DescripcionPedido d: desped){
                 d.ingresoDescripcion(Conexion.getConnection(), d.getTotal(), d.getCantidad(), d.getCodigoProducto(), jTextCodigoPed.getText(), ap.analizarPalabra(codTienda));
             }
             
+            JOptionPane.showMessageDialog(null, "Pedido realizado con éxito\nEl pedido deberá estar listo en " + tiem.obtenerTiempo(Conexion.getConnection(), codigo_tienda, ap.analizarPalabra(codTienda)) + " dias");
             
-            
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, añada al menos un producto\nal pedido");
         }
+         
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

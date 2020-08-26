@@ -5,12 +5,17 @@
  */
 package interfazGrafica;
 
+import analizadores.AnalizadorPalabra;
 import analizadores.Conexion;
+import entidades.Compra;
 import entidades.DescripcionPedido;
 import entidades.Existencias;
+import entidades.Pedido;
+import entidades.Producto;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,6 +26,7 @@ public class PanelCompra extends javax.swing.JPanel {
     private Calendar fecha = new GregorianCalendar();
     private ArrayList<DescripcionPedido> despe = new ArrayList<>();
     private String codigo_tienda;
+    private Pedido pedido = new Pedido();
     
     /**
      * Creates new form PanelCompra
@@ -71,6 +77,13 @@ public class PanelCompra extends javax.swing.JPanel {
         jFormattedTextField3 = new javax.swing.JFormattedTextField();
         labelTotal = new javax.swing.JLabel();
         labelDinero = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jFormattedTextField4 = new javax.swing.JFormattedTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jFormattedTextField5 = new javax.swing.JFormattedTextField();
+        jLabel3 = new javax.swing.JLabel();
+
+        setToolTipText("");
 
         jLabel1.setText("Seleccione la opción que desea ejecutar");
 
@@ -123,7 +136,7 @@ public class PanelCompra extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        jLabel6.setText("Codigo*");
+        jLabel6.setText("Codigo Producto*");
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setText("Agregar Producto");
@@ -135,19 +148,47 @@ public class PanelCompra extends javax.swing.JPanel {
 
         jButton2.setBackground(new java.awt.Color(204, 204, 204));
         jButton2.setText("FINALIZAR COMPRA");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(204, 204, 204));
         jButton3.setText("Cancelar Compra");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Cantidad*");
 
         jButtonPedido.setBackground(new java.awt.Color(204, 204, 204));
         jButtonPedido.setText("Comprar Pedido");
+        jButtonPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPedidoActionPerformed(evt);
+            }
+        });
 
         labelTotal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         labelTotal.setText("Total: Q");
 
         labelDinero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        labelDinero.setText("0.00");
+
+        jButton4.setBackground(new java.awt.Color(204, 204, 204));
+        jButton4.setText("Verificar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Codigo Compra");
+
+        jLabel3.setText("NIT");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -166,7 +207,12 @@ public class PanelCompra extends javax.swing.JPanel {
                             .addComponent(jScrollPane2)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(218, 218, 218)
+                                        .addComponent(labelTotal)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(labelDinero))
                                     .addComponent(labelinfo)
                                     .addComponent(labelinfo1)
                                     .addGroup(layout.createSequentialGroup()
@@ -178,21 +224,18 @@ public class PanelCompra extends javax.swing.JPanel {
                                         .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel7)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(labelTotal)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(labelDinero))
-                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)))))))
-                                .addGap(0, 71, Short.MAX_VALUE)))
+                                                        .addGap(0, 318, Short.MAX_VALUE)
+                                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel7)
+                                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(71, 71, 71)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,9 +244,22 @@ public class PanelCompra extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButtonPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel6))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonPedido))
+                            .addComponent(jLabel6)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jFormattedTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jFormattedTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addGap(77, 77, 77))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,7 +269,10 @@ public class PanelCompra extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(labelfecha))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTotal)
+                    .addComponent(labelDinero, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelinfo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -227,12 +286,10 @@ public class PanelCompra extends javax.swing.JPanel {
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3)
-                    .addComponent(jButtonPedido))
+                    .addComponent(jButtonPedido)
+                    .addComponent(jButton4))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelinfo2)
-                    .addComponent(labelTotal)
-                    .addComponent(labelDinero))
+                .addComponent(labelinfo2)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -241,12 +298,20 @@ public class PanelCompra extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
                     .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jFormattedTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFormattedTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -261,14 +326,53 @@ public class PanelCompra extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Existencias exis = new Existencias();
+        Producto produ = new Producto();
         
-        String precio;
+        //obtenemos el precio del producto solicitado
+        String precio = produ.getPrecio(Conexion.getConnection(), jFormattedTextField3.getText(), jFormattedTextField2.getText());
         
+        //Verificamos que el producto tenga existencias
         if(exis.verificarExistencias(Conexion.getConnection(), codigo_tienda, jFormattedTextField2.getText(), jFormattedTextField3.getText())){
-            //desped.add(new DescripcionPedido())
+            despe.add(new DescripcionPedido(precio, jFormattedTextField3.getText(), jFormattedTextField2.getText()));
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        
+        labelDinero.setText(pedido.totalPedido(Conexion.getConnection(), jFormattedTextField1.getText(), codigo_tienda));
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButtonPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+        
+    }//GEN-LAST:event_jButtonPedidoActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+        Pedido pedi = new Pedido();
+        Compra compra = new Compra();
+        //Analizamos que existan productos para añadir a la compra
+        if(despe.size() > 0){
+            
+            pedi.ingresoPedido(Conexion.getConnection(), jFormattedTextField4.getText(), "0", "0", labelfecha.getText(), codigo_tienda, codigo_tienda, jFormattedTextField5.getText());
+            for(DescripcionPedido d: despe)
+                d.ingresoDescripcion(Conexion.getConnection(), d.getTotal(), d.getCantidad(), d.getCodigoProducto(), jFormattedTextField4.getText(), codigo_tienda);
+            compra.registrarCompra(Conexion.getConnection(), jFormattedTextField4.getText(), codigo_tienda, jFormattedTextField5.getText(), labelfecha.getText());
+            JOptionPane.showMessageDialog(null, "Compra realizada con éxito");
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void inicializacionCompraPedido(){
         
@@ -320,13 +424,18 @@ public class PanelCompra extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonPedido;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JFormattedTextField jFormattedTextField3;
+    private javax.swing.JFormattedTextField jFormattedTextField4;
+    private javax.swing.JFormattedTextField jFormattedTextField5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

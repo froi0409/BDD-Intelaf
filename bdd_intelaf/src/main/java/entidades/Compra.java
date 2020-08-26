@@ -5,12 +5,44 @@
  */
 package entidades;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 /**
  *
  * @author froi-pc
  */
 public class Compra {
     
-    
+    public void registrarCompra(Connection connection, String codigo_pedido, String codigo_tienda, String NIT_cliente, String fecha){
+        
+        String insert = "INSERT INTO COMPRA (fecha,nombre_comprador,codigo_tienda,codigo_pedido,NIT_cliente) VALUES (?,?,?,?,?)";
+        String query = "SELECT nombre FROM CLIENTE WHERE NIT = ?";
+        
+        try (PreparedStatement preSt = connection.prepareStatement(insert);
+             PreparedStatement preSt2 = connection.prepareStatement(query)) {
+            
+            preSt2.setString(1, NIT_cliente);
+            
+            
+            ResultSet result2 = preSt2.executeQuery();
+            result2.next();
+            
+            preSt.setString(1, fecha);
+            preSt.setString(2, result2.getString(1));
+            preSt.setString(3, codigo_tienda);
+            preSt.setString(4, codigo_pedido);
+            preSt.setString(5, NIT_cliente);
+            
+            System.out.println("HOLAAA");
+            
+            preSt.executeUpdate();
+            
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        
+    }
     
 }

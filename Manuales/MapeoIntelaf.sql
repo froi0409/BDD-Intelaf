@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS PRODUCTO(
   codigo_producto VARCHAR(20) NOT NULL,
   nombre VARCHAR(60) NOT NULL,
   fabricante VARCHAR(45) NOT NULL,
-  precio DECIMAL(6,2) NOT NULL,
+  precio DECIMAL(9,2) NOT NULL,
   descripcion VARCHAR(300),
   garantia INT,
   PRIMARY KEY(codigo_producto)
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS CLIENTE(
   DPI VARCHAR(15),
   nombre VARCHAR(60) NOT NULL,
   telefono VARCHAR(8) NOT NULL,
-  credito DECIMAL(6,2),
+  credito DECIMAL(9,2),
   correo_electronico VARCHAR(60),
   direccion VARCHAR(600),
   PRIMARY KEY(NIT)
@@ -63,8 +63,8 @@ CREATE TABLE IF NOT EXISTS TIEMPO_ENVIO(
 
 CREATE TABLE IF NOT EXISTS PEDIDO(
   codigo_pedido VARCHAR(10) NOT NULL,
-  anticipo DECIMAL(6,2) NOT NULL,
-  precio_final DECIMAL(6,2) NOT NULL,
+  anticipo DECIMAL(9,2) NOT NULL,
+  precio_final DECIMAL(9,2) NOT NULL,
   fecha DATE NOT NULL,
   bonificacion INT,
   tienda_origen VARCHAR(10),
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS PEDIDO(
 
 CREATE TABLE IF NOT EXISTS DESCRIPCION_PEDIDO(
   codigo_descripcion INT AUTO_INCREMENT,
-  total DECIMAL(6,2) NOT NULL,
+  total DECIMAL(9,2) NOT NULL,
   cantidad INT NOT NULL,
   codigo_producto VARCHAR(10) NOT NULL,
   codigo_pedido VARCHAR(10) NOT NULL,
